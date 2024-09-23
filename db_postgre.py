@@ -1,29 +1,43 @@
 import psycopg
 import os
 
-DATABASE_URI = os.getenv('DATABASE_URL_SSL_PRFFER')
+DATABASE_URI = os.getenv('DATABASE_URL')
 
 
 def get_query(query, params=None, mul=True):
-    with psycopg.connect(DATABASE_URI) as conn:
-        with conn.cursor() as cur:
+    try:
+        if DATABASE_URI is None:
+            raise ValueError("DATABASE_URI is not set.")
+        
+        with psycopg.connect(DATABASE_URI) as conn:
+            with conn.cursor() as cur:
 
-            if params:
-                cur.execute(query, params)
-            else:
-                cur.execute(query)
-                
-            if mul:
-                result = cur.fetchall()
-            else:
-                result = cur.fetchone()
+                if params:
+                    cur.execute(query, params)
+                else:
+                    cur.execute(query)
+                    
+                if mul:
+                    result = cur.fetchall()
+                else:
+                    result = cur.fetchone()
 
-            return result
+                return result
+            
+    except psycopg.OperationalError as e:
+        print(f"Connection failed: {e}")
 
 
 def execute_query(query, params):
-    with psycopg.connect(DATABASE_URI) as conn:
-        with conn.cursor() as cur:
+    try:
+        if DATABASE_URI is None:
+            raise ValueError("DATABASE_URI is not set.")
+        
+        with psycopg.connect(DATABASE_URI) as conn:
+            with conn.cursor() as cur:
 
-            cur.execute(query, params)
-            conn.commit()
+                cur.execute(query, params)
+                conn.commit()
+
+    except psycopg.OperationalError as e:
+        print(f"Connection failed: {e}")
