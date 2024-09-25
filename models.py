@@ -1,5 +1,5 @@
-# import db_postgre as db
-import db_sqlite as db
+import db_postgre as db
+# import db_sqlite as db
 from utils import extract_user
 from flask import session
 
