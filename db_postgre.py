@@ -1,7 +1,7 @@
 import psycopg
 import os
 
-DATABASE_URI = os.getenv('DATABASE_URL')
+DATABASE_URI = os.getenv('POSTGRES_URL')
 
 
 def get_query(query, params=None, mul=True):
