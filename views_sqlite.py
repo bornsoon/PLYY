@@ -1,3 +1,4 @@
+# views.py
 from flask import Blueprint, request, session, render_template, redirect, url_for, jsonify
 from models import db, curator_info, curatorlike_status, curator_like, curator_unlike, plyy_like, plyy_unlike, plyylike_status, cu_plyy
 from models import extract_user, user_sign, user_signup, user_sign_aka, current_pw, change_pw, change_nickname
@@ -26,7 +27,7 @@ def login_view():
     if request.method == 'POST':
         Id = request.form['userid']
         Pw = request.form['userpw']
-        user = db.get_query('SELECT id, email, pw, nickname FROM USER WHERE email = %s and pw = %s', (Id, Pw),mul=False)
+        user = db.get_query('SELECT id, email, pw, nickname FROM USER WHERE email = ? and pw = ?', (Id, Pw),mul=False)
         if user:
             session['id'] = user['id']
             session['nickname'] = user['nickname']
@@ -37,24 +38,20 @@ def login_view():
         
     return render_template('login.html', login_failed=False)
 
-
 @logout.route('/logout', methods=['POST'])
 def logout_view():
     session.pop('id', None)
     session.pop('nickname',None)
     return redirect(url_for('main.index'))
 
-
 @mypage.route('/mypage')
 def mypage_view():
     print(session)
     return render_template('mypage.html')
 
-
 @mypage_edit.route('/edit')
 def edit_view():
     return render_template('test_mypage_edit.html')
-
 
 @mypage_edit_currentpw.route('/api/pw', methods=['POST'])
 def mypage_pw():
@@ -70,7 +67,6 @@ def mypage_pw():
         return jsonify({'valid': True})
     else:
         return jsonify({'valid': False, 'message': '비밀번호가 올바르지 않습니다.'}), 401
-
 
 @mypage_edit_changepw.route('/api/change-password', methods=['POST'])
 def change_password():
@@ -93,7 +89,6 @@ def change_password():
     else:
         return jsonify({'success': False, 'message': 'Failed to update password.'}), 500
 
-
 @mypage_edit_nickname.route('/api/change-nickname', methods=['POST'])
 def edit_nickname():
     data = request.get_json()
@@ -115,17 +110,14 @@ def edit_nickname():
         return jsonify({'success': True, 'message': 'Nickname updated successfully.'})
     else:
         return jsonify({'success': False, 'message': 'Failed to update Nickname.'}), 5
-
-
+    
 @signup.route('/signup')
 def signup_view():
     return render_template('signup.html')
 
-
 @curator.route('/curator/<c_id>')
 def curator_view(c_id):
     return render_template('cDetail.html')
-
 
 @signup_email.route('/api/<email>',methods=['post'])
 def signup_email_view(email):
@@ -136,7 +128,6 @@ def signup_email_view(email):
         print(f"Error occurred: {e}")
         return jsonify({'exists': False}), 500
 
-
 @signup_nickname.route('/api/nickname/<nickname>',methods=['post'])
 def signup_nickname_view(nickname):
     try:
@@ -145,7 +136,6 @@ def signup_nickname_view(nickname):
     except Exception as e:
         print(f"Error occurred: {e}")
         return jsonify({'exists': False}), 500
-
 
 @signup_final.route('/api/signup',methods=['post'])
 def signup_final_view():
@@ -158,8 +148,7 @@ def signup_final_view():
         # user_signup 함수 호출하여 데이터베이스에 사용자 추가
         result = user_signup(email, password, nickname)
         if result:
-            user = db.get_query('SELECT id FROM PUBLIC.USER WHERE email = %s and pw = %s', (email,password),mul=False)
-            print(user)
+            user = db.get_query('SELECT id FROM USER WHERE email = ? and pw = ?', (email,password),mul=False)
             session['id'] = user['id']
             session['nickname'] = user['nickname']
             return jsonify({'success': True, 'message': '회원가입이 완료되었습니다!'}), 200
@@ -169,7 +158,6 @@ def signup_final_view():
     except Exception as e:
         print(f"오류 발생: {e}")
         return jsonify({'success': False, 'message': '서버 오류가 발생했습니다.'}), 500
-
 
 @api_curator.route('/plyy/api/curator/<c_id>', methods=['GET'])
 def api_curator_view(c_id):
@@ -219,7 +207,6 @@ def api_curator_view(c_id):
         }
     })
 
-
 @like_curator.route('/plyy/api/like/<u_id>/<c_id>', methods=['POST'])
 def like_curator_view(u_id, c_id):
     u_id = extract_user(u_id)
@@ -228,7 +215,6 @@ def like_curator_view(u_id, c_id):
         return jsonify({'success': True}), 200
     else:
         return jsonify({'success': False}), 500
-
 
 @unlike_curator.route('/plyy/api/unlike/<u_id>/<c_id>', methods=['DELETE'])
 def unlike_curator_view(u_id, c_id):
@@ -239,7 +225,6 @@ def unlike_curator_view(u_id, c_id):
     else:
         return jsonify({'success': False}), 500
 
-
 @like_plyy.route('/plyy/api/plyylike/<u_id>/<p_id>', methods=['POST'])
 def like_plyy_view(u_id, p_id):
     u_id = extract_user(u_id)
@@ -248,7 +233,6 @@ def like_plyy_view(u_id, p_id):
         return jsonify({'success': True}), 200
     else:
         return jsonify({'success': False}), 500
-
 
 @unlike_plyy.route('/plyy/api/plyyunlike/<u_id>/<p_id>', methods=['DELETE'])
 def unlike_plyy_view(u_id, p_id):

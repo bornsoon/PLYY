@@ -1,5 +1,6 @@
 import psycopg
 import os
+from psycopg.rows import dict_row
 
 DATABASE_URI = os.getenv('POSTGRES_URL')
 
@@ -10,7 +11,7 @@ def get_query(query, params=None, mul=True):
             raise ValueError("DATABASE_URI is not set.")
         
         with psycopg.connect(DATABASE_URI) as conn:
-            with conn.cursor() as cur:
+            with conn.cursor(row_factory=dict_row) as cur:
 
                 if params:
                     cur.execute(query, params)
@@ -21,7 +22,6 @@ def get_query(query, params=None, mul=True):
                     result = cur.fetchall()
                 else:
                     result = cur.fetchone()
-
                 return result
             
     except psycopg.OperationalError as e:

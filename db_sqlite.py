@@ -26,24 +26,12 @@ def get_query(query, params=None, mul=True):
 
     conn.close()
 
+    result = [dict(row) for row in result]
+
     return result
 
 
-def insert_query(query, params):
-    conn,cur = connect_db()
-    cur.execute(query,params)
-    conn.commit()
-    conn.close()
-
-
 def execute_query(query, params):
-    conn,cur = connect_db()
-    cur.execute(query, params)
-    conn.commit()
-    conn.close
-
-
-def update_query(query, params):
     conn,cur = connect_db()
     cur.execute(query, params)
     conn.commit()

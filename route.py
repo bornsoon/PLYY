@@ -1,6 +1,5 @@
 from flask import Blueprint, jsonify, render_template, session, request
-from models import db, plyylike_status, tag_query, plyy_query, curator_query
-from utils import extract_user
+from models import plyylike_status, tag_list, plyy_query, plyy_detail_query, curator_query, extract_user, song_detail_query
 
 main = Blueprint('main', __name__)
 plyy = Blueprint('plyy', __name__)
@@ -41,18 +40,7 @@ def search_curator():
 
 @api_main.route('/tag')
 def api_main_tag():
-    query = '''
-            SELECT
-            name AS tag
-            FROM TAG
-            UNION
-            SELECT
-            name AS tag
-            FROM GENRE
-            '''
-    tags = db.get_query(query)
-    result = [dict(row) for row in tags]
-
+    result = tag_list()
     return jsonify(result)
 
 
@@ -108,90 +96,20 @@ def api_main_curator():
 
 @api_plyy.route('/<id>')
 def api_plyy_detail(id):
-    try:
-        pidlist = [id]
-        plyy_query = '''
-                    SELECT
-                    p.title,
-                    c.name AS curator, 
-                    STRFTIME('%Y-%m-%d', p.gen_date) AS 'generate',
-                    STRFTIME('%Y-%m-%d', p.up_date) AS 'update',
-                    g.name AS genre,
-                    p.cmt AS comment  
-                    FROM PLYY p 
-                    JOIN CURATOR c ON p.c_id=c.id
-                    JOIN GENRE g ON p.g_id=g.id 
-                    WHERE p.id=? GROUP BY p.id;
-                    '''
-        plyy = dict(db.get_query(plyy_query, (id,), mul=False))
+    plyy, tracks, tags = plyy_detail_query(id)
 
-        heart_query = '''
-                    SELECT
-                    COUNT(*) AS heart
-                    FROM p_LIKE
-                    WHERE p_id=?;
-                    '''
-        heart = dict(db.get_query(heart_query, (id,), mul=False))
-        plyy['heart'] = heart['heart']
+    pidlist = [id]
+    if 'id' in session and session['id']:
+        u_id = extract_user(session['id'])
+        if u_id:
+            p_isliked = plyylike_status(pidlist, u_id) #키는 현재 유저
+            plyy.update({'p_isliked':p_isliked})
 
-        tracks_query = '''
-                    SELECT t.id,
-                    t.title,
-                    t.img,
-                    t.album,
-                    t.artist,
-                    s.num,
-                    t.rtime
-                    FROM TRACK t 
-                    JOIN SONG s ON t.id=s.tk_id
-                    JOIN PLYY p ON s.p_id=p.id 
-                    WHERE p.id=?;
-                    '''
-        tracks = db.get_query(tracks_query,(id,))
-        tracks = [dict(row) for row in tracks]
-
-        tags = tag_query('plyy', id)
-        tags = [dict(row) for row in tags]
-
-        if 'id' in session and session['id']:
-            u_id = extract_user(session['id'])
-            if u_id:
-                p_isliked = plyylike_status(pidlist, u_id) #키는 현재 유저
-                plyy.update({'p_isliked':p_isliked})
-
-    except:
-        print('해당 플레이리스트의 상세정보 페이지가 존재하지 않습니다.')
 
     return jsonify({'plyy': plyy, 'tracks': tracks, 'tags': tags})
 
 
 @api_plyy.route('/<id>/<song_num>')
 def api_song(id, song_num):
-    try:
-        song_query = '''
-                    SELECT 
-                    t.title,
-                    t.artist,
-                    t.img,
-                    t.album,
-                    s.cmt AS comment,
-                    s.vid
-                    FROM TRACK t 
-                    JOIN SONG s ON t.id=s.tk_id 
-                    WHERE s.p_id=? AND s.num=?
-                    '''
-        result = dict(db.get_query(song_query, (id,song_num), mul=False))
-
-        total_query = '''
-                    SELECT
-                    COUNT(id) AS total
-                    FROM SONG
-                    WHERE p_id=?
-                    '''
-        total_index = dict(db.get_query(total_query, (id,), mul=False))
-
-        result['total_num'] = total_index['total']
-    except:
-        print('해당 곡의 상세정보 페이지가 존재하지 않습니다.')
-    
+    result = song_detail_query(id, song_num) 
     return jsonify(result)
