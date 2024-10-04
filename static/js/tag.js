@@ -1,3 +1,5 @@
+asof = 365
+
 function isTag(generate, update) {
     now = new Date();
     nowTime = Math.ceil(now.getTime() / (1000 * 60 * 60 * 24));
@@ -9,12 +11,12 @@ function isTag(generate, update) {
     } else {
         updateTime = 0;
     };
-    if (!(update) && ((nowTime - genTime) < 32)) {
+    if (!(update) && ((nowTime - genTime) < asof)) {
         return 'NEW'
-    } else if ((nowTime - updateTime) < 32) {
+    } else if ((nowTime - updateTime) < asof) {
         return 'UPDATE'
     };
-    if ((nowTime - genTime) < 32 || (nowTime - updateTime) < 32) {
+    if ((nowTime - genTime) < asof || (nowTime - updateTime) < asof) {
         return 'True'
     }
 }

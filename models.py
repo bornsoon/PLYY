@@ -312,7 +312,7 @@ def plyy_query(condition=None, param=None):
                 JOIN SONG s ON p.id=s.p_id
                 JOIN TRACK t ON s.tk_id=t.id
                 '''
-        query2 = ' GROUP BY p.id, c.id, g.id ORDER BY p.id;'
+        query2 = ' GROUP BY p.id, c.id, g.id;'
         
         if condition:
             if condition.lower() == 'cid':
