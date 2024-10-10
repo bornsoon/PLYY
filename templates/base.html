@@ -30,7 +30,7 @@
     </header>
 
         {% block modal %}
-            <div id="logineed" class="modal hide" style="text-align: center;">
+            <div id="logged-in" class="modal hide" style="text-align: center;">
                 <div class="modal__title">
                     <span class="fs20">로그인 필요</span>
                 </div>
@@ -42,6 +42,7 @@
                     <button class="btn cancel" onclick="closeModal()">취소</button>
                 </div>
             </div>
+            <div class="modal_container" id="modal-container"></div>
         {% endblock %}
     {% endblock %}
 
@@ -93,13 +94,14 @@
                 const size = document.getElementsByName('login-required').length;
                 for(let i = 0; i < size; i++) {
                     document.getElementsByName('login-required')[i].onclick = function() {
-                        const modal = document.getElementById('logineed')
+                        const modal = document.getElementById('logged-in')
                         modal.classList.remove('hide');
                         modal.style.display = 'flex'; // 모달을 화면에 표시
                         modal.style.position = 'fixed';
                         modal.style.top = '45%'; // 화면 중앙에 위치
                         modal.style.left = '50%'; // 화면 중앙에 위치
                         modal.style.transform = 'translate(-50%, -50%)'; // 중앙 정렬
+                        document.getElementById('modal-container').style.display = 'block';
                     }
                 }
             } else {
@@ -132,7 +134,8 @@
                 }
 
                 function closeModal() {
-                    document.getElementById('logineed').classList.add('hide');
+                    document.getElementById('logged-in').classList.add('hide');
+                    document.getElementById('modal-container').style.display = 'none';
                 }
             }
         });

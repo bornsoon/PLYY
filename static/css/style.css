@@ -9,6 +9,9 @@
   box-sizing: border-box;
 }
 
+.badge.tag:hover {
+  background-color: #C5C5C5;
+}
 .badge.tag {
   padding: 0.4rem 0.8rem;
   height: 2.3rem;
@@ -29,6 +32,10 @@
   clip: rect(1px, 1px, 1px, 1px);
 }
 
+.btn.confirm:hover{
+  border: 1px solid #b3e45d;
+  background-color: #b3e45d;
+}
 .btn.confirm {
   padding: 0.8rem 1.6rem;
   height: 4.1rem;
@@ -40,6 +47,9 @@
   box-sizing: border-box;
 }
 
+.btn.cancel:hover{
+  background-color: rgba(255, 255, 255, 0.2);
+}
 .btn.cancel {
   padding: 0.8rem 1.6rem;
   height: 4.1rem;
@@ -325,21 +335,31 @@ body {
   width: 4.6rem;
   height: 4.6rem;
 }
+.btn-hash:hover {
+  background: url(../images/ico__hash--hover.svg) no-repeat center;
+}
 .btn-hash {
   background: url(../images/ico__hash.svg) no-repeat center;
   width: 4rem;
   height: 4rem;
+}
+.btn-hash--active:hover {
+  background: url(../images/ico__hash--active--hover.svg) no-repeat center;
 }
 .btn-hash--active {
   background: url(../images/ico__hash--active.svg) no-repeat center;
   width: 4rem;
   height: 4rem;
 }
+.btn-search:hover {
+  background: url(../images/ico__search--hover.svg) no-repeat center;
+}
 .btn-search {
   background: url(../images/ico__search.svg) no-repeat center;
   width: 4rem;
   height: 4rem;
 }
+
 .btn-hash2 {
   background: url(../images/ico__hash2.svg) no-repeat center;
   width: 2.4rem;
@@ -392,6 +412,10 @@ body {
   height: 2.4rem;
 }
 
+.tab-type1 .h2:hover {
+  color: #FFFFFF;
+  font-size: 2.1rem;
+}
 .tab-type1 {
   margin: 3.2rem 1.6rem;
   display: flex;
@@ -404,7 +428,7 @@ body {
 .tab-type1 li {
   flex: 1;
 }
-.tab-type1 a, .tab-type1 button {
+.tab-type1 li, .tab-type1 button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -412,8 +436,19 @@ body {
   height: 100%;
   background: transparent;
 }
-.tab-type1--deactive a, .tab-type1--deactive button {
+.tab-type1--deactive .h2:hover {
+  color: #999999;
+  font-size: 2.0rem;
+}
+.tab-type1--deactive li, .tab-type1--deactive button {
   color: #666666;
+}
+.tab-type2 li {
+  flex: 1;
+}
+.tab-type2 .h2:hover {
+  color: #FFFFFF;
+  font-size: 2.1rem;
 }
 .tab-type2 {
   margin: 3.2rem 1.6rem;
@@ -424,8 +459,12 @@ body {
   background: linear-gradient(to right, #121212, #121212) padding-box, linear-gradient(90deg, #F3A78B 13.25%, #F5F5F5 26.5%, #22B9F1 60%, #05B5F7 95%) border-box;
   box-sizing: border-box;
 }
-.tab-type2 li {
-  flex: 1;
+.tab-type2--deactive .h2:hover {
+  color: #999999;
+  font-size: 2.0rem;
+}
+.tab-type2--deactive li, .tab-type2--deactive button {
+  color: #666666;
 }
 .tab-type2 a, .tab-type2 button {
   display: flex;
@@ -434,9 +473,6 @@ body {
   width: 100%;
   height: 100%;
   background: transparent;
-}
-.tab-type2--deactive a, .tab-type2--deactive button {
-  color: #666666;
 }
 .tab-type3 {
   margin: 1.8rem 1.6rem auto 1.6rem;
@@ -956,7 +992,18 @@ input:not([type=checkbox], [type=radio])[readonly] {
   width: 35.8rem;
   border-radius: 2rem;
   background-color: #333333;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
   gap: 2.3rem;
+}
+
+.modal_container {
+  z-index: 5;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
 }
 
 .modal__title {
@@ -1182,10 +1229,6 @@ input:not([type=checkbox], [type=radio])[readonly] {
 .signup button {
   width: 100%;
 }
-
-
-
-
 
 .align {
   display: flex;

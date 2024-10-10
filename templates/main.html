@@ -7,7 +7,7 @@
     {% block tab %}
         <nav>
             <ul class="tab-type1" id="tab-type">
-                <li id="plyy_tab"><button class="h2" id="plyy_tab">PLYY</button></li>
+                <li id="plyy_tab"><button class="h2">PLYY</button></li>
                 <li class="tab-type1--deactive" id="curator_tab"><button class="h2">CURATOR</button></li>
             </ul>
         </nav>
@@ -50,7 +50,7 @@
             formBox.action = '/search/plyy';
             mainTab.classList.remove('tab-type2');
             mainTab.classList.add('tab-type1');
-            plyyTab.classList.remove('tab-type1--deactive');
+            plyyTab.classList.remove('tab-type2--deactive');
             curatorTab.classList.add('tab-type1--deactive');
         });
 
@@ -63,7 +63,7 @@
             mainTab.classList.remove('tab-type1');
             mainTab.classList.add('tab-type2');
             curatorTab.classList.remove('tab-type1--deactive');
-            plyyTab.classList.add('tab-type1--deactive');
+            plyyTab.classList.add('tab-type2--deactive');
         });
 
         document.addEventListener('DOMContentLoaded', function() {
