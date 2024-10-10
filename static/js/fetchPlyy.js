@@ -68,7 +68,7 @@ function fetchPlyy(api_route) {
                 if (sessionId) {
                     ToggleLike(sessionId, plyy.id, 'plyy', 'plike');
                 } else {
-                    const modal = document.getElementById('logineed')
+                    const modal = document.getElementById('logged-in')
                     modal.classList.remove('hide');
                     modal.style.display = 'flex'; // 모달을 화면에 표시
                     modal.style.position = 'fixed';

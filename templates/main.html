@@ -1,8 +1,6 @@
 {% extends "base_search.html" %}
 
 <!-- div class="main__container" -->
-
-
     <!-- 메인 탭 -->
     {% block tab %}
         <nav>
@@ -23,20 +21,6 @@
     
         <!-- 로그인 정보를 포함한 hidden element 추가 -->
         <div id="session-data" data-session-id="{{ session['id'] }}" style="display: none;"></div>
-
-
-        <div id="logineed" class="modal hide" style="text-align: center;">
-            <div class="modal__title">
-                <span class="fs20">로그인 필요</span>
-            </div>
-            <div class="modal__text">
-                <span class="fs14">로그인이 필요한 서비스입니다.<br>로그인 하시겠습니까?</span>
-            </div>
-            <div class="modal__btns align both">
-                <button class="btn confirm" onclick="window.location.href='/login'">확인</button>
-                <button class="btn cancel" onclick="closeModal()">취소</button>
-            </div>
-        </div>
 
     {% endblock %}
 
@@ -71,10 +55,5 @@
             fetchPlyy('/api/main/plyy');
             formBox.action = '/search/plyy';
         });
-
-        function closeModal() {
-            document.getElementById('logineed').classList.add('hide');
-        }
-
     </script>
 {% endblock %}

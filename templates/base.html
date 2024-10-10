@@ -9,25 +9,25 @@
 <body>
     <!-- 헤더 -->
     {% block header %}
-    <header class="header">
-        <div class="align both">
-            <div><button class="btn-logo" aria-label="플리 로고" onclick="location.href='/'"></button></div>
-            <div class="header__icon-group">
-                <button id="note" name="login-required" class="btn-bell--default login-required" aria-label="알림 없음"></button>
-                <!-- <button class="btn-bell--new" aria-label="새로운 알림 있음"></button> -->
-                <button id="like" name="login-required" class="btn-mylikes login-required" aria-label="나의 좋아요"></button>
-                {% if session['id'] %}
-                    <!-- 로그인 상태일 때 -->
-                    <button id="profile" class="btn-myprofile2" aria-label="내 프로필">
-                        <img id="profile-img-s" alt="내 프로필">
-                    </button>
-                {% else %}
-                    <!-- 로그인 상태가 아닐 때 -->
-                    <button id="profile" class="btn-myprofile2" aria-label="내 프로필"></button>
-                {% endif %}
+        <header class="header">
+            <div class="align both">
+                <div><button class="btn-logo" aria-label="플리 로고" onclick="location.href='/'"></button></div>
+                <div class="header__icon-group">
+                    <button id="note" name="login-required" class="btn-bell--default login-required" aria-label="알림 없음"></button>
+                    <!-- <button class="btn-bell--new" aria-label="새로운 알림 있음"></button> -->
+                    <button id="like" name="login-required" class="btn-mylikes login-required" aria-label="나의 좋아요"></button>
+                    {% if session['id'] %}
+                        <!-- 로그인 상태일 때 -->
+                        <button id="profile" class="btn-myprofile2" aria-label="내 프로필">
+                            <img id="profile-img-s" alt="내 프로필">
+                        </button>
+                    {% else %}
+                        <!-- 로그인 상태가 아닐 때 -->
+                        <button id="profile" class="btn-myprofile2" aria-label="내 프로필"></button>
+                    {% endif %}
+                </div>
             </div>
-        </div>
-    </header>
+        </header>
 
         {% block modal %}
             <div id="logged-in" class="modal hide" style="text-align: center;">
@@ -83,6 +83,11 @@
         plyyLikeStates = {};
         curatorLikeStates = {};
 
+        function closeModal() {
+            document.getElementById('logged-in').classList.add('hide');
+            document.getElementById('modal-container').style.display = 'none';
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             // 세션에서 로그인 상태 확인
             let loggedIn = "{{ session['id'] }}"; // Flask 세션에서 로그인한 사용자 아이디 가져오기
@@ -131,11 +136,6 @@
                         profileImgS.style.display = 'none'; // 이미지가 로드되지 않은 경우, 이미지 숨기기
                         // console.log('Image does not exist');
                     };
-                }
-
-                function closeModal() {
-                    document.getElementById('logged-in').classList.add('hide');
-                    document.getElementById('modal-container').style.display = 'none';
                 }
             }
         });

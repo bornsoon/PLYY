@@ -37,20 +37,6 @@
     </div>
 </div>
 
-<div id="logineed" class="modal hide" style="text-align: center;">
-    <div class="modal__title">
-        <span class="fs20">로그인 필요</span>
-    </div>
-    <div class="modal__text">
-        <span class="fs14">로그인이 필요한 서비스입니다.<br>로그인 하시겠습니까?</span>
-    </div>
-    <div class="modal__btns align both">
-        <button class="btn confirm" onclick="window.location.href='/login'">확인</button>
-        <button class="btn cancel" onclick="closeModal()">취소</button>
-    </div>
-    
-</div>
-
 <!-- 위로가기 화살표 플로팅 아이콘 -->
 <div class="fixed-floating-rb"><button class="btn__main__arrow" aria-label="메인에서 위로가기"></button></div>
 
@@ -113,13 +99,14 @@
                     ToggleLike(sessionId, cid, 'curator', 'cheart');
                 } else {
                 // 클래스로 모달 요소를 선택하고 첫 번째 요소를 선택
-                    const modal = document.getElementById('logineed')
+                    const modal = document.getElementById('logged-in')
                     modal.classList.remove('hide');
                     modal.style.display = 'flex'; // 모달을 화면에 표시
                     modal.style.position = 'fixed';
                     modal.style.top = '45%'; // 화면 중앙에 위치
                     modal.style.left = '50%'; // 화면 중앙에 위치
                     modal.style.transform = 'translate(-50%, -50%)'; // 중앙 정렬
+                    document.getElementById('modal-container').style.display = 'block';
                 }
             });
     
@@ -129,7 +116,8 @@
     }
 
         function closeModal() {
-            document.getElementById('logineed').classList.add('hide');
+            document.getElementById('logged-in').classList.add('hide');
+            document.getElementById('modal-container').style.display = 'none';
         }
 
 </script>

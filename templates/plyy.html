@@ -37,19 +37,6 @@
 
     <div id="tost_message">URL이 복사되었습니다!</div>
 
-    <div id="logineed" class="modal hide" style="text-align: center;">
-        <div class="modal__title">
-            <span class="fs20">로그인 필요</span>
-        </div>
-        <div class="modal__text">
-            <span class="fs14">로그인이 필요한 서비스입니다.<br>로그인 하시겠습니까?</span>
-        </div>
-        <div class="modal__btns align both">
-            <button class="btn confirm" onclick="window.location.href='/login'">확인</button>
-            <button class="btn cancel" onclick="closeModal()">취소</button>
-        </div>
-    </div>
-
 {% endblock %}
 
 {% block script %}
@@ -140,7 +127,7 @@
                     if (sessionId) {
                         ToggleLike(sessionId, plyyId, 'plyy', 'pheart');
                     } else {
-                        const modal = document.getElementById('logineed')
+                        const modal = document.getElementById('logged-in')
                         modal.classList.remove('hide');
                         modal.style.display = 'flex'; // 모달을 화면에 표시
                         modal.style.position = 'fixed';
@@ -174,11 +161,6 @@
             })
             .catch(error => console.error('데이터를 처리하는 과정에서 오류가 발생하였습니다.'))
         };
-
-        function closeModal() {
-            document.getElementById('logineed').classList.add('hide');
-        }
-
     </script>
 
 {% endblock %}
