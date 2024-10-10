@@ -288,6 +288,12 @@ body {
   object-fit: fit;
 }
 
+.btn-plus {
+  background: url(../images/ico__plus.svg) no-repeat center;
+  width: 12rem;
+  height: 12rem;
+}
+
 .btn__arrow-right {
   background: url(../images/btn__arrow-left--white.svg) no-repeat center;
   width: 2.4rem;
@@ -345,25 +351,25 @@ body {
   height: 4rem;
 }
 
-.btn-curator-heart--fill {
+.btn-cheart--fill {
   background: url(../images/ico__cheart--fill.svg) no-repeat center;
   width: 2.4rem;
   height: 2.4rem;
 }
 
-.btn-curator-heart--unfill {
+.btn-cheart--unfill {
   background: url(../images/ico__cheart--unfill.svg) no-repeat center;
   width: 2.4rem;
   height: 2.4rem;
 }
 
-.btn-plyy-heart--fill {
+.btn-pheart--fill {
   background: url(../images/ico__pheart--fill.svg) no-repeat center;
   width: 2.4rem;
   height: 2.4rem;
 }
 
-.btn-plyy-heart--unfill {
+.btn-pheart--unfill {
   background: url(../images/ico__pheart--unfill.svg) no-repeat center;
   width: 2.4rem;
   height: 2.4rem;
@@ -407,7 +413,7 @@ body {
   background: transparent;
 }
 .tab-type1--deactive a, .tab-type1--deactive button {
-  color: #777777;
+  color: #666666;
 }
 .tab-type2 {
   margin: 3.2rem 1.6rem;
@@ -430,7 +436,7 @@ body {
   background: transparent;
 }
 .tab-type2--deactive a, .tab-type2--deactive button {
-  color: #777777;
+  color: #666666;
 }
 .tab-type3 {
   margin: 1.8rem 1.6rem auto 1.6rem;
@@ -790,7 +796,7 @@ input:not([type=checkbox], [type=radio])[readonly] {
 }
 
 .song__youtube {
-  height: 24rem;
+  height: 35rem;
   background-color: cadetblue;
 }
 
@@ -844,6 +850,14 @@ input:not([type=checkbox], [type=radio])[readonly] {
   align-items: center;
   margin-bottom: 3.2rem;
 }
+
+.fixed-floating-rb {
+  position: fixed;
+  display: flex;
+  right: 3.2rem;
+  bottom: 3.2rem;
+}
+
 
 .floating-plyy {
   display: flex;
@@ -933,6 +947,7 @@ input:not([type=checkbox], [type=radio])[readonly] {
 }
 
 .modal {
+  z-index: 10;
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -1,6 +1,6 @@
 from flask import Blueprint, request, session, render_template, redirect, url_for, jsonify
-from models import db, curator_info, curatorlike_status, curator_like, curator_unlike, plyy_like, plyy_unlike, plyylike_status, cu_plyy
-from models import extract_user, user_sign, user_signup, user_sign_aka, current_pw, change_pw, change_nickname
+from models_s import db, curator_info, curatorlike_status, curator_like, curator_unlike, plyy_like, plyy_unlike, plyylike_status, cu_plyy
+from models_s import extract_user, user_sign, user_signup, user_sign_aka, current_pw, change_pw, change_nickname
 
 logout = Blueprint('logout', __name__)
 mypage = Blueprint('mypage', __name__)
@@ -47,7 +47,8 @@ def logout_view():
 
 @mypage.route('/mypage')
 def mypage_view():
-    print(session)
+    if not session:
+        return redirect(url_for('login.login_view'))
     return render_template('mypage.html')
 
 

@@ -8,6 +8,7 @@ function fetchCurator(api_route) {
             let updateTagId = 'updateTag' + index;
             let curatorTagId1 = 'curatorTag1' + index;
             let curatorTagId2 = 'curatorTag2' + index;
+            let cLiked = (sessionId !== '' && sessionId !== 'None') ? (c.cliked || false) : false;
             const curatorCard = document.createElement('li');
             curatorCard.innerHTML =
                 `<a href="/curator/${c.id}">` +
@@ -18,7 +19,7 @@ function fetchCurator(api_route) {
                             `<div id="${curatorTagId1}" class="badge tag"></div>` +
                             `<div id="${curatorTagId2}" class="badge tag"></div>` +
                         '</div>' +
-                        `<button class="btn-clike--${c.cliked ? 'fill' : 'unfill'}" id="like-${c.id}" aria-label="큐레이터 좋아요 즐겨찾기"></button>` +
+                        `<button class="btn-clike--${c.cliked ? 'fill' : 'unfill'}" id="like-c${c.id}" aria-label="큐레이터 좋아요 즐겨찾기"></button>` +
                     '</div>' +
                     '<div class="curator-card__bottom">' +
                         '<div>' +
@@ -58,14 +59,16 @@ function fetchCurator(api_route) {
                 })
             });
 
+            if (sessionId) {
+                curatorLikeStates[c.id] = cLiked;
+            }
 
             // 큐레이터 좋아요 버튼 클릭 이벤트 처리
-            const likeButton = document.getElementById(`like-${c.id}`);
+            const likeButton = document.getElementById(`like-c${c.id}`);
             likeButton.addEventListener('click', function(event) {
                 event.preventDefault();
-                const cid = c.id;
                 if (sessionId) {
-                    CuratorToggleLike(sessionId, cid);
+                    ToggleLike(sessionId, c.id, 'curator', 'clike');
                 } else {
                     const modal = document.getElementById('logineed')
                     modal.classList.remove('hide');

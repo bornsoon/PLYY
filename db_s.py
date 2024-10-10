@@ -21,12 +21,19 @@ def get_query(query, params=None, mul=True):
         
     if mul:
         result = cur.fetchall()
-    else:
+        if result:
+            result = [dict(row) for row in result]
+        else:
+            print('results are None')
+    elif mul == False:
         result = cur.fetchone()
+        if result:
+            result = dict(result)
+        else:
+            print('result is None')
 
     conn.close()
 
-    result = [dict(row) for row in result]
 
     return result
 

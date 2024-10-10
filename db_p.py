@@ -20,7 +20,7 @@ def get_query(query, params=None, mul=True):
                     
                 if mul:
                     result = cur.fetchall()
-                else:
+                elif not mul:
                     result = cur.fetchone()
                 return result
             

@@ -1,5 +1,4 @@
-import db_postgre as db
-# import db_sqlite as db
+import db_p as db
 from flask import session
 
 
@@ -188,6 +187,18 @@ def change_pw(id,pw):
     except Exception as e:
         print(f"Error updating password: {e}")
         return False
+   
+    
+def change_img(id,filename):
+    query = 'UPDATE USER SET img = ? WHERE id = ?'
+    params = (filename, id)
+    try:
+        db.update_query(query, params)
+        return True
+    except Exception as e:
+        print(f"Error updating password: {e}")
+        return False
+    
     
 def change_nickname(id,nickname):
     query = 'UPDATE USER SET nickname = %s WHERE id = %s'
@@ -238,7 +249,7 @@ def tag_query(category, id, mul=True):
                     JOIN C_TAG ct ON t.id=ct.t_id
                     WHERE ct.c_id = %s
                     '''
-        tags = db.get_query(query, (id,), mul)
+        tags = db.get_query(query, (id,))
         
         return tags
     
@@ -292,6 +303,7 @@ def plyy_detail_query(id):
 
     except:
         print('해당 플레이리스트의 상세정보를 불러오는데 실패했습니다.')
+
 
 def plyy_query(condition=None, param=None):
     try:
