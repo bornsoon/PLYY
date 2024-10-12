@@ -56,6 +56,12 @@ def api_main_plyy():
     return jsonify(result)
 
 
+@api_main.route('/curator')
+def api_main_curator():
+    result = curator_query()
+    return jsonify(result)
+
+
 @api_c_plyy.route('/<id>')
 def api_curator_plyy(id):
     result = plyy_query('cid', id)
@@ -96,12 +102,6 @@ def like_curator():
     return jsonify(result)
 
 
-@api_main.route('/curator')
-def api_main_curator():
-    result = curator_query()
-    return jsonify(result)
-
-
 @api_plyy.route('/<id>')
 def api_plyy_info(id):
     plyy, tracks, tags = plyy_info(id)
@@ -115,6 +115,6 @@ def api_song(id, song_num):
 
 
 @api_curator.route('/<id>', methods=['GET'])
-def api_curator_view(id):
+def api_curator_info(id):
     curator = curator_info(id)
     return jsonify(curator)

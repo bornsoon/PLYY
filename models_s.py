@@ -313,7 +313,7 @@ def song_detail_query(id, song_num):
                     s.vid
                     FROM TRACK t 
                     JOIN SONG s ON t.id = s.tk_id 
-                    WHERE s.p_id = ? AND s.num = ?
+                    WHERE s.p_id = ? AND s.num = ?;
                     '''
         result = db.get_query(song_query, (id,song_num), mul=False)
 
@@ -321,7 +321,7 @@ def song_detail_query(id, song_num):
                     SELECT
                     COUNT(id) AS total
                     FROM SONG
-                    WHERE p_id = ?
+                    WHERE p_id = ?;
                     '''
         total_index = db.get_query(total_query, (id,), mul=False)
         result['total_num'] = total_index['total']
@@ -394,7 +394,7 @@ def curator_info(id):
                         GROUP BY c.id
                         '''
         curator = db.get_query(curator_query, (id,), mul=False)
-        likes = db.get_query('SELECT COUNT(1) count FROM C_LIKE WHERE c_id = ?',(id,), mul=False)
+        likes = db.get_query('SELECT COUNT(1) count FROM C_LIKE WHERE c_id = ?', (id,), mul=False)
 
         curator['likes'] = likes['count']
 
