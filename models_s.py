@@ -11,7 +11,8 @@ def like_status(category, id, u_id):
     
         return likes
     
-    except:
+    except Exception as e:
+        print(f"Error of like_status: {e}")
         return None
 
 
