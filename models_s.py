@@ -5,9 +5,9 @@ from flask import session
 def like_status(category, id, u_id):
     try:
         if category == 'plyy':
-            likes = db.get_query('SELECT * FROM P_LIKE WHERE p_id = ? and u_id = ?', (id, u_id), mul=False)
+            likes = db.get_query('SELECT 1 FROM P_LIKE WHERE p_id = ? and u_id = ?', (id, u_id), mul=False)
         elif category == 'curator':
-            likes = db.get_query('SELECT * FROM C_LIKE WHERE c_id = ? and u_id = ?', (id, u_id), mul=False)
+            likes = db.get_query('SELECT 1 FROM C_LIKE WHERE c_id = ? and u_id = ?', (id, u_id), mul=False)
     
         return likes
     
@@ -19,11 +19,11 @@ def like_status(category, id, u_id):
 def user_like(category, u_id, id):
     try:
         if category == 'plyy':
-            result = db.get_query('SELECT * FROM P_LIKE WHERE u_id = ? AND p_id = ?', (u_id, id), mul=False)
+            result = db.get_query('SELECT 1 FROM P_LIKE WHERE u_id = ? AND p_id = ?', (u_id, id), mul=False)
             if not result:
                 db.execute_query('INSERT INTO P_LIKE (u_id, p_id) VALUES (?, ?)', (u_id, id))   
         elif category == 'curator':
-            result = db.get_query('SELECT * FROM C_LIKE WHERE u_id = ? AND c_id = ?', (u_id, id), mul=False)
+            result = db.get_query('SELECT 1 FROM C_LIKE WHERE u_id = ? AND c_id = ?', (u_id, id), mul=False)
             if not result:
                 db.execute_query('INSERT INTO C_LIKE (u_id, c_id) VALUES (?, ?)', (u_id, id))   
         return True
@@ -37,11 +37,11 @@ def user_like(category, u_id, id):
 def user_unlike(category, u_id, id):
     try:
         if category == 'plyy':
-            result = db.get_query('SELECT * FROM P_LIKE WHERE u_id = ? AND p_id = ?', (u_id, id), mul=False)
+            result = db.get_query('SELECT 1 FROM P_LIKE WHERE u_id = ? AND p_id = ?', (u_id, id), mul=False)
             if result:
                 db.execute_query('DELETE FROM P_LIKE WHERE u_id = ? AND p_id = ?', (u_id, id))
         elif category == 'curator':
-            result = db.get_query('SELECT * FROM C_LIKE WHERE u_id = ? AND c_id = ?', (u_id, id), mul=False)
+            result = db.get_query('SELECT 1 FROM C_LIKE WHERE u_id = ? AND c_id = ?', (u_id, id), mul=False)
             if result:
                 db.execute_query('DELETE FROM C_LIKE WHERE u_id = ? AND c_id = ?', (u_id, id))
         return True
@@ -205,7 +205,7 @@ def plyy_info(id):
 
         heart_query = '''
                     SELECT
-                    COUNT(*) AS heart
+                    COUNT(1) AS heart
                     FROM p_LIKE
                     WHERE p_id=?;
                     '''
