@@ -86,7 +86,7 @@ def user_sign_aka(nickname):
 def user_signup(email,pw,nickname):
     try:
         # 새로운 사용자 추가
-        db.execute_query("INSERT INTO USER (email,pw,nickname) VALUES(?,?,?)", (email,pw,nickname))
+        db.execute_query("INSERT INTO USER (email,pw,nickname) VALUES(?, ?, ?)", (email,pw,nickname))
         return True
     except Exception as e:
         print(f"회원가입 처리 중 오류 발생: {e}")
@@ -165,8 +165,8 @@ def tag_query(category, id, mul=True):
                     SELECT
                     t.name 
                     FROM TAG t 
-                    JOIN P_TAG pt ON t.id=pt.t_id
-                    WHERE pt.p_id=?
+                    JOIN P_TAG pt ON t.id = pt.t_id
+                    WHERE pt.p_id = ?
                     '''
 
         elif category.lower() == 'curator':
@@ -174,8 +174,8 @@ def tag_query(category, id, mul=True):
                     SELECT
                     t.name
                     FROM TAG t
-                    JOIN C_TAG ct ON t.id=ct.t_id
-                    WHERE ct.c_id=?
+                    JOIN C_TAG ct ON t.id = ct.t_id
+                    WHERE ct.c_id = ?
                     '''
         tags = db.get_query(query, (id,), mul)
         
@@ -197,9 +197,9 @@ def plyy_info(id):
                     g.name AS genre,
                     p.cmt AS comment  
                     FROM PLYY p 
-                    JOIN CURATOR c ON p.c_id=c.id
-                    JOIN GENRE g ON p.g_id=g.id 
-                    WHERE p.id=? GROUP BY p.id;
+                    JOIN CURATOR c ON p.c_id = c.id
+                    JOIN GENRE g ON p.g_id = g.id 
+                    WHERE p.id = ? GROUP BY p.id;
                     '''
         plyy = db.get_query(plyy_query, (id,), mul=False)
 
@@ -207,7 +207,7 @@ def plyy_info(id):
                     SELECT
                     COUNT(1) AS heart
                     FROM p_LIKE
-                    WHERE p_id=?;
+                    WHERE p_id = ?;
                     '''
         heart = db.get_query(heart_query, (id,), mul=False)
 
@@ -216,9 +216,9 @@ def plyy_info(id):
                     SELECT t.*,
                     s.num
                     FROM TRACK t 
-                    JOIN SONG s ON t.id=s.tk_id
-                    JOIN PLYY p ON s.p_id=p.id 
-                    WHERE p.id=?
+                    JOIN SONG s ON t.id = s.tk_id
+                    JOIN PLYY p ON s.p_id = p.id 
+                    WHERE p.id = ?
                     ORDER BY s.num;
                     '''
         tracks = db.get_query(tracks_query,(id,))
@@ -248,16 +248,16 @@ def plyy_query(condition=None, param=None):
                 COUNT(s.num) AS tracks,
                 SUM(t.rtime) AS times
                 FROM PLYY p
-                JOIN CURATOR c ON p.c_id=c.id
-                JOIN GENRE g ON p.g_id=g.id
-                JOIN SONG s ON p.id=s.p_id
-                JOIN TRACK t ON s.tk_id=t.id
+                JOIN CURATOR c ON p.c_id = c.id
+                JOIN GENRE g ON p.g_id = g.id
+                JOIN SONG s ON p.id = s.p_id
+                JOIN TRACK t ON s.tk_id = t.id
                 '''
         query2 = ' GROUP BY p.id;'
         
         if condition:
             if condition.lower() == 'cid':
-                add_query = 'WHERE c.id=?'
+                add_query = 'WHERE c.id = ?'
                 query = query1 + add_query + query2
                 result = db.get_query(query, (param,))    
             elif condition.lower() == 'title':
@@ -265,13 +265,13 @@ def plyy_query(condition=None, param=None):
                 query = query1 + add_query + query2
                 result = db.get_query(query, (param,))    
             elif condition.lower() == 'uid':
-                add_query = "JOIN P_LIKE pl ON pl.p_id=p.id WHERE pl.u_id=?"
+                add_query = "JOIN P_LIKE pl ON pl.p_id = p.id WHERE pl.u_id = ?"
                 query = query1 + add_query + query2
                 result = db.get_query(query, (param,))    
             elif condition.lower() == 'tag':
                 add_query = '''
-                            JOIN P_TAG pt ON p.id=pt.p_id
-                            JOIN TAG tg ON pt.t_id=tg.id
+                            JOIN P_TAG pt ON p.id = pt.p_id
+                            JOIN TAG tg ON pt.t_id = tg.id
                             WHERE tg.name LIKE '%'||?||'%'
                             OR genre LIKE '%'||?||'%'
                             '''
@@ -312,8 +312,8 @@ def song_detail_query(id, song_num):
                     s.cmt AS comment,
                     s.vid
                     FROM TRACK t 
-                    JOIN SONG s ON t.id=s.tk_id 
-                    WHERE s.p_id=? AND s.num=?
+                    JOIN SONG s ON t.id = s.tk_id 
+                    WHERE s.p_id = ? AND s.num = ?
                     '''
         result = db.get_query(song_query, (id,song_num), mul=False)
 
@@ -321,7 +321,7 @@ def song_detail_query(id, song_num):
                     SELECT
                     COUNT(id) AS total
                     FROM SONG
-                    WHERE p_id=?
+                    WHERE p_id = ?
                     '''
         total_index = db.get_query(total_query, (id,), mul=False)
         result['total_num'] = total_index['total']
@@ -340,11 +340,11 @@ def curator_query(condition=None, param=None):
             if condition.lower() == 'name':
                 query = query + " WHERE c.name LIKE '%'||?||'%';"         
             elif condition.lower() == 'uid':
-                query = query + " JOIN C_LIKE cl ON c.id=cl.c_id WHERE cl.u_id=?;"
+                query = query + " JOIN C_LIKE cl ON c.id = cl.c_id WHERE cl.u_id = ?;"
             elif condition.lower() == 'tag':
                 query = query + '''
-                                JOIN C_TAG ct ON c.id=ct.c_id 
-                                JOIN TAG tg ON ct.t_id=tg.id
+                                JOIN C_TAG ct ON c.id = ct.c_id 
+                                JOIN TAG tg ON ct.t_id = tg.id
                                 WHERE tg.name LIKE '%'||?||'%';
                                 '''
             result = db.get_query(query,(param,))
@@ -361,9 +361,9 @@ def curator_query(condition=None, param=None):
                     MAX(STRFTIME('%Y-%m-%d', p.gen_date)) AS generate,
                     MAX(STRFTIME('%Y-%m-%d', p.up_date)) AS 'update'
                     FROM PLYY p
-                    JOIN CURATOR c ON p.c_id=c.id
+                    JOIN CURATOR c ON p.c_id = c.id
                     GROUP BY c.id
-                    HAVING c.id=?;
+                    HAVING c.id = ?;
                     '''
         for i in result:
             date = db.get_query(date_query, (i['id'],), mul=False)
