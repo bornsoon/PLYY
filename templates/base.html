@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
+    <!-- 로그인 정보를 포함한 hidden element 추가 -->
+    <div id="session-data" data-session-id="{{ session['id'] }}" style="display: none;"></div>
+
     <!-- 헤더 -->
     {% block header %}
         <header class="header">

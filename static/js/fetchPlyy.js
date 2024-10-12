@@ -7,7 +7,8 @@ function fetchPlyy(api_route) {
         data.forEach((plyy, index) => {
             let dateTagId = 'dateTag' + index;
             let plyyTagId = 'plyyTag' + index;
-            let pLiked = (sessionId !== '' && sessionId !== 'None') ? (plyy.pliked || false) : false;
+            console.log(sessionId)
+            let pLiked = sessionId != '' ? (plyy.pliked || false) : false;
             const plyyCard = document.createElement('li');
             plyyCard.innerHTML = 
                 `<a href="/plyy/${plyy.id}">` +

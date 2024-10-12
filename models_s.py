@@ -56,6 +56,16 @@ def extract_user(id):
     return u_id['id'] if u_id else None
 
 
+def extract_user2(email, password):
+    user = db.get_query('SELECT id FROM USER WHERE email = ? and pw = ?', (email, password), mul=False)
+    return user['id'], user['nickname'] if user else None
+
+
+def extract_user3(id, password):
+    user = db.get_query('SELECT id, email, pw, nickname, img FROM USER WHERE email = ? and pw = ?', (id, password), mul=False)
+    return user['id'], user['nickname'], user['img'] if user else None
+
+
 def user_sign(email):
     try:
         return bool(db.get_query('SELECT 1 FROM USER WHERE email = ?', (email,), mul=False))
@@ -89,6 +99,7 @@ def current_pw(id, pw):
     if user and user['pw'] == pw:
         return id
     return None
+
 
 def change_pw(id,pw):
     query = 'UPDATE USER SET pw = ? WHERE id = ?'
@@ -390,8 +401,6 @@ def curator_info(id):
             u_id = extract_user(session['id'])
             if u_id:
                 curator['cliked'] = bool(like_status('curator', id, u_id))
-
-
 
         return curator
     

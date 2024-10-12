@@ -8,7 +8,7 @@ function fetchCurator(api_route) {
             let updateTagId = 'updateTag' + index;
             let curatorTagId1 = 'curatorTag1' + index;
             let curatorTagId2 = 'curatorTag2' + index;
-            let cLiked = (sessionId !== '' && sessionId !== 'None') ? (c.cliked || false) : false;
+            let cLiked = sessionId !== '' ? (c.cliked || false) : false;
             const curatorCard = document.createElement('li');
             curatorCard.innerHTML =
                 `<a href="/curator/${c.id}">` +
@@ -58,7 +58,7 @@ function fetchCurator(api_route) {
                     event.preventDefault();
                 })
             });
-
+  
             if (sessionId) {
                 curatorLikeStates[c.id] = cLiked;
             }

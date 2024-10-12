@@ -1,7 +1,7 @@
 # views.py
 from flask import Blueprint, request, session, render_template, redirect, url_for, jsonify
-from models_s import db, user_like, user_unlike, extract_user, user_sign, user_signup, user_sign_aka,\
-                     current_pw, change_pw, change_nickname, change_img
+from models_s import db, user_like, user_unlike, extract_user, extract_user2, extract_user3, user_sign,\
+                     user_signup, user_sign_aka, current_pw, change_pw, change_nickname, change_img
 from route import main
 import os
 # from app import app``
@@ -20,11 +20,11 @@ like_toggle = Blueprint('like_toggle', __name__)
 @main.route('/login', methods=['GET', 'POST'])
 def login_view():
     if request.method == 'POST':
-        Id = request.form['userid']
-        Pw = request.form['userpw']
-        user = db.get_query('SELECT id, email, pw, nickname, img FROM USER WHERE email = ? and pw = ?', (Id, Pw), mul=False)
+        id = request.form['userid']
+        password = request.form['userpw']
+        user = extract_user3(id, password)
         if user:
-            print('suceess')
+            print('login suceess')
             session['id'] = user['id']
             session['nickname'] = user['nickname']
             if user['img']:
@@ -33,18 +33,20 @@ def login_view():
                 session['img'] ='U.jpg'
             return redirect(url_for('main.index'))
         else:
-            print('fail')
+            print('login fail')
             session['id'] = ''
             return render_template('login.html', login_failed=True)
         
     return render_template('login.html', login_failed=False)
 
+
 @main.route('/logout', methods=['POST'])
 def logout_view():
-    session.pop('id', None)
-    session.pop('nickname',None)
-    session.pop('img',None)
+    session.pop('id', '')
+    session.pop('nickname', '')
+    session.pop('img', '')
     return redirect(url_for('main.index'))
+
 
 @main.route('/mypage')
 def mypage_view():
@@ -56,7 +58,8 @@ def mypage_view():
 def edit_view():
     if not session:
         return redirect(url_for('main.login_view'))
-    return render_template('test_mypage_edit.html')
+    return render_template('mypage_edit.html')
+
 
 @main.route('/api_img', methods=['POST'])
 def upload_file():
@@ -66,9 +69,8 @@ def upload_file():
         filepath = os.path.join('static/cardimage/', f'U{user_id}.jpg')  ######## app.config
         file.save(filepath)
         change_img(id, file.filename)
-        return redirect(url_for('main.edit_view'))
-    else:
-        return jsonify({'success': False})
+    return redirect(url_for('main.edit_view'))
+
 
 @api_mypage.route('/pw', methods=['POST'])
 def mypage_pw():
@@ -84,6 +86,7 @@ def mypage_pw():
         return jsonify({'valid': True})
     else:
         return jsonify({'valid': False, 'message': '비밀번호가 올바르지 않습니다.'}), 401
+
 
 @api_mypage.route('/change-password', methods=['POST'])
 def change_password():
@@ -127,10 +130,12 @@ def edit_nickname():
         return jsonify({'success': True, 'message': 'Nickname updated successfully.'})
     else:
         return jsonify({'success': False, 'message': 'Failed to update Nickname.'}), 5
-    
+
+
 @main.route('/signup')
 def signup_view():
     return render_template('signup.html')
+
 
 @api_signup.route('/<email>',methods=['post'])
 def signup_email_view(email):
@@ -150,6 +155,7 @@ def signup_nickname_view(nickname):
         print(f"Error occurred: {e}")
         return jsonify({'exists': False}), 500
 
+
 @api_signup.route('/signup',methods=['post'])
 def signup_final_view():
     try:
@@ -161,7 +167,7 @@ def signup_final_view():
         # user_signup 함수 호출하여 데이터베이스에 사용자 추가
         result = user_signup(email, password, nickname)
         if result:
-            user = db.get_query('SELECT id FROM USER WHERE email = ? and pw = ?', (email,password), mul=False)
+            user = extract_user2(email, password)
             session['id'] = user['id']
             session['nickname'] = user['nickname']
             return jsonify({'success': True, 'message': '회원가입이 완료되었습니다!'}), 200
