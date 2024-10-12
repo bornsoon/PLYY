@@ -64,7 +64,7 @@
         .then(curator => {
             const sessionId = "{{ session['id'] }}";
             const cid = curator.id;
-            const cLiked = (sessionId !== '' && sessionId !== 'None') ? (curator.cliked || false) : false;
+            const cLiked = sessionId != '' ? (curator.cliked || false) : false;
             const cName = curator.name;
             document.title = cName + ' | PLYY';
             

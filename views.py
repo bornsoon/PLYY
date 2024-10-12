@@ -1,7 +1,7 @@
 # views.py
 from flask import Blueprint, request, session, render_template, redirect, url_for, jsonify
 from models_s import db, user_like, user_unlike, extract_user, extract_user2, extract_user3, user_sign,\
-                     user_signup, user_sign_aka, current_pw, change_pw, change_nickname, change_img
+                     user_signup, user_sign_aka, current_pw, change_pw, change_img, change_nickname
 from route import main
 import os
 # from app import app``
@@ -23,6 +23,7 @@ def login_view():
         id = request.form['userid']
         password = request.form['userpw']
         user = extract_user3(id, password)
+        print(user)
         if user:
             print('login suceess')
             session['id'] = user['id']
@@ -179,10 +180,10 @@ def signup_final_view():
         return jsonify({'success': False, 'message': '서버 오류가 발생했습니다.'}), 500
 
 
-@like_toggle.route('/<category>/<u_id>/<id>', methods=['POST'])
+@like_toggle.route('/l/<category>/<u_id>/<id>', methods=['POST'])
 def like_view(category, u_id, id):
     u_id = extract_user(u_id)
-    success = user_like(category, id, u_id)
+    success = user_like(category, u_id, id)
 
     if success:
         return jsonify({'success': True}), 200
@@ -190,10 +191,10 @@ def like_view(category, u_id, id):
         return jsonify({'success': False}), 500
     
 
-@like_toggle.route('/<category>/<u_id>/<id>', methods=['DELETE'])
+@like_toggle.route('/ul/<category>/<u_id>/<id>', methods=['DELETE'])
 def unlike_view(category, u_id, id):
     u_id = extract_user(u_id)
-    success = user_unlike(category, id, u_id)
+    success = user_unlike(category, u_id, id)
 
     if success:
         return jsonify({'success': True}), 200

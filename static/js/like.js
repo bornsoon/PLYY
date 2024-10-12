@@ -1,17 +1,15 @@
 function ToggleLike(u_id, id, category, btn) {
     if (category == 'plyy') {
         likeStates = plyyLikeStates;
-        fl = 'p';
         btnId = `like-p${id}`;
     } else if (category == 'curator') {
         likeStates = curatorLikeStates;
-        fl = 'c';
         btnId = `like-c${id}`;
     }
     
     const likeButton = document.getElementById(btnId);
     const methodToggle = likeStates[id] ? 'DELETE' : 'POST';
-    const url = likeStates[id] ? `/api/like_toggle/${fl}ul/${encodeURIComponent(u_id)}/${encodeURIComponent(id)}` : `/api/like_toggle/${fl}l/${encodeURIComponent(u_id)}/${encodeURIComponent(id)}`;
+    const url = likeStates[id] ? `/api/like_toggle/ul/${category}/${encodeURIComponent(u_id)}/${encodeURIComponent(id)}` : `/api/like_toggle/l/${category}/${encodeURIComponent(u_id)}/${encodeURIComponent(id)}`;
     fetch(url, { method: methodToggle })
     .then(response => response.json())
     .then(data => {

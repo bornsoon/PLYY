@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, render_template, session, request
-from models_s import like_status, tag_list, plyy_query, plyy_info, curator_info, curator_query, extract_user, song_detail_query
+from models_s import tag_list, plyy_query, plyy_info, curator_info, curator_query, song_detail_query
 
 main = Blueprint('main', __name__)
 plyy = Blueprint('plyy', __name__)

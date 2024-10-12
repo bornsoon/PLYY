@@ -58,7 +58,7 @@
                 total_rtime = 0;
                 document.title = data.plyy.title + ' | PLYY';
                 const sessionId = "{{ session.id }}";
-                const pLiked = (sessionId !== '' && sessionId !== 'None') ? (data.plyy.pliked || false) : false;
+                const pLiked = sessionId != '' ? (data.plyy.pliked || false) : false;
                 const plyyTitle = document.getElementById('plyy_title');
                 const date = document.getElementById('date');
                 const curator = document.getElementById('curator');

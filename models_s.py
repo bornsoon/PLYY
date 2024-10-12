@@ -15,7 +15,7 @@ def like_status(category, id, u_id):
         return None
 
 
-def user_like(category, id, u_id):
+def user_like(category, u_id, id):
     try:
         if category == 'plyy':
             result = db.get_query('SELECT * FROM P_LIKE WHERE u_id = ? AND p_id = ?', (u_id, id), mul=False)
@@ -33,7 +33,7 @@ def user_like(category, id, u_id):
         return False
 
 
-def user_unlike(category, id, u_id):
+def user_unlike(category, u_id, id):
     try:
         if category == 'plyy':
             result = db.get_query('SELECT * FROM P_LIKE WHERE u_id = ? AND p_id = ?', (u_id, id), mul=False)
@@ -58,12 +58,12 @@ def extract_user(id):
 
 def extract_user2(email, password):
     user = db.get_query('SELECT id FROM USER WHERE email = ? and pw = ?', (email, password), mul=False)
-    return user['id'], user['nickname'] if user else None
+    return user if user else None
 
 
 def extract_user3(id, password):
     user = db.get_query('SELECT id, email, pw, nickname, img FROM USER WHERE email = ? and pw = ?', (id, password), mul=False)
-    return user['id'], user['nickname'], user['img'] if user else None
+    return user if user else None
 
 
 def user_sign(email):
@@ -226,7 +226,7 @@ def plyy_info(id):
         if 'id' in session and session['id']:
             u_id = extract_user(session['id'])
             plyy['pliked'] = bool(like_status('plyy', id, u_id)) #키는 현재 유저
-
+        
         return plyy, tracks, tags
 
     except Exception as e:
