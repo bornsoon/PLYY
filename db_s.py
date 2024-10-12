@@ -34,7 +34,6 @@ def get_query(query, params=None, mul=True):
 
     conn.close()
 
-
     return result
 
 
