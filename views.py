@@ -1,6 +1,6 @@
 # views.py
 from flask import Blueprint, request, session, render_template, redirect, url_for, jsonify
-from models_s import db, user_like, user_unlike, extract_user, extract_user2, extract_user3, user_sign,\
+from models_p import db, user_like, user_unlike, extract_user, extract_user2, extract_user3, user_sign,\
                      user_signup, user_sign_aka, current_pw, change_pw, change_img, change_nickname
 from route import main
 import os

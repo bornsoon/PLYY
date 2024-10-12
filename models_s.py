@@ -210,8 +210,8 @@ def plyy_info(id):
                     WHERE p_id = ?;
                     '''
         heart = db.get_query(heart_query, (id,), mul=False)
-
         plyy['heart'] = heart['heart']
+        
         tracks_query = '''
                     SELECT t.*,
                     s.num
