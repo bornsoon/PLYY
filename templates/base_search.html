@@ -131,7 +131,7 @@
 
         plyyTab.addEventListener('click', function(event){
             searchInput.value = query;
-            document.title = 'PLYY | Search PLYY';
+            document.title = 'Search PLYY | PLYY';
             clearList();
             fetchCurator(`/api/search/plyy?q=${encodeURIComponent(query)}`);
             formBox.action = '/search/plyy';
@@ -144,7 +144,7 @@
 
         curatorTab.addEventListener('click', function(event){
             searchInput.value = query;
-            document.title = 'PLYY | Search CURATOR';
+            document.title = 'Search CURATOR | PLYY';
             clearList();
             fetchCurator(`/api/search/curator?q=${encodeURIComponent(query)}`);
             formBox.action = '/search/curator';

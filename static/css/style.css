@@ -436,7 +436,7 @@ body {
   height: 100%;
   background: transparent;
 }
-.tab-type1--deactive .h2:hover {
+.tab-type1--deactive>.h2:hover {
   color: #999999;
   font-size: 2.0rem;
 }
@@ -446,6 +446,7 @@ body {
 .tab-type2 li {
   flex: 1;
 }
+
 .tab-type2 .h2:hover {
   color: #FFFFFF;
   font-size: 2.1rem;
@@ -459,7 +460,7 @@ body {
   background: linear-gradient(to right, #121212, #121212) padding-box, linear-gradient(90deg, #F3A78B 13.25%, #F5F5F5 26.5%, #22B9F1 60%, #05B5F7 95%) border-box;
   box-sizing: border-box;
 }
-.tab-type2--deactive .h2:hover {
+.tab-type2--deactive>.h2:hover {
   color: #999999;
   font-size: 2.0rem;
 }
@@ -686,9 +687,14 @@ input:not([type=checkbox], [type=radio])[readonly] {
   display: flex;
   height: 4rem;
 }
+.search-type1 input:hover {
+  background-color: #E5E5E5;
+  border: 1px solid #E5E5E5;
+}
 .search-type1 input {
   width: 100%;
   margin-right: 0.8rem;
+  background-color: #F5F5F5;
 }
 .search-type1 div {
   gap: 0.8rem;

@@ -28,7 +28,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             searchInput.value = query;
             fetchCurator(`/api/search/curator?q=${encodeURIComponent(query)}`);
-            document.title = 'PLYY | Search CURATOR';
+            document.title = 'Search CURATOR | PLYY';
             mainTab.classList.remove('tab-type1');
             mainTab.classList.add('tab-type2');
             curatorTab.classList.remove('tab-type1--deactive');

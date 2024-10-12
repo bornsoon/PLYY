@@ -27,7 +27,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             searchInput.value = query;
             fetchPlyy(`/api/search/plyy?q=${encodeURIComponent(query)}`);
-            document.title = 'PLYY | Search PLYY';
+            document.title = 'Search PLYY | PLYY';
             mainTab.classList.remove('tab-type2');
             mainTab.classList.add('tab-type1');
             plyyTab.classList.remove('tab-type2--deactive');

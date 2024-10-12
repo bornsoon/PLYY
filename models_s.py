@@ -15,13 +15,16 @@ def like_status(category, id, u_id):
         return None
 
 
-def curator_like(c_id, u_id):
+def user_like(category, id, u_id):
     try:
-        result = db.get_query('SELECT * FROM C_LIKE WHERE u_id = ? AND c_id = ?', (u_id,c_id), mul=False)
-
-        if not result:
-            db.execute_query('INSERT INTO C_LIKE (u_id, c_id) VALUES (?, ?)', (u_id, c_id))
-        
+        if category == 'plyy':
+            result = db.get_query('SELECT * FROM P_LIKE WHERE u_id = ? AND p_id = ?', (u_id, id), mul=False)
+            if not result:
+                db.execute_query('INSERT INTO P_LIKE (u_id, p_id) VALUES (?, ?)', (u_id, id))   
+        elif category == 'curator':
+            result = db.get_query('SELECT * FROM C_LIKE WHERE u_id = ? AND c_id = ?', (u_id, id), mul=False)
+            if not result:
+                db.execute_query('INSERT INTO C_LIKE (u_id, c_id) VALUES (?, ?)', (u_id, id))   
         return True
         
     except Exception as e:
@@ -30,43 +33,16 @@ def curator_like(c_id, u_id):
         return False
 
 
-def curator_unlike(c_id, u_id):
+def user_unlike(category, id, u_id):
     try:
-        result = db.get_query('SELECT * FROM C_LIKE WHERE u_id = ? AND c_id = ?', (u_id,c_id), mul=False)
-
-        if result:
-            db.execute_query('DELETE FROM C_LIKE WHERE u_id = ? AND c_id = ?', (u_id, c_id))
-        
-        return True
-    
-    except Exception as e:
-        print(f"Error deleting like: {e}")
-        db.roll()
-        return False
-
-
-def plyy_like(p_id, u_id):
-    try:
-        result = db.get_query('SELECT * FROM P_LIKE WHERE u_id = ? AND p_id = ?', (u_id, p_id), mul=False)
-        
-        if not result:
-            db.execute_query('INSERT INTO P_LIKE (u_id, p_id) VALUES (?, ?)', (u_id, p_id))
-
-        return True
-    
-    except Exception as e:
-        print(f"Error inserting like: {e}")
-        db.roll()
-        return False
-
-
-def plyy_unlike(p_id, u_id):
-    try:
-        result =  db.get_query('SELECT * FROM P_LIKE WHERE u_id = ? AND p_id = ?', (u_id, p_id),mul=False)
-        
-        if result:
-            db.execute_query('DELETE FROM P_LIKE WHERE u_id = ? AND p_id = ?', (u_id, p_id))
-        
+        if category == 'plyy':
+            result = db.get_query('SELECT * FROM P_LIKE WHERE u_id = ? AND p_id = ?', (u_id, id), mul=False)
+            if result:
+                db.execute_query('DELETE FROM P_LIKE WHERE u_id = ? AND p_id = ?', (u_id, id))
+        elif category == 'curator':
+            result = db.get_query('SELECT * FROM C_LIKE WHERE u_id = ? AND c_id = ?', (u_id, id), mul=False)
+            if result:
+                db.execute_query('DELETE FROM C_LIKE WHERE u_id = ? AND c_id = ?', (u_id, id))
         return True
     
     except Exception as e:
@@ -77,7 +53,6 @@ def plyy_unlike(p_id, u_id):
 
 def extract_user(id):
     u_id = db.get_query('SELECT id FROM USER WHERE id = ?', (id,), mul=False)
-
     return u_id['id'] if u_id else None
 
 
@@ -106,7 +81,7 @@ def user_signup(email,pw,nickname):
         print(f"회원가입 처리 중 오류 발생: {e}")
         db.roll()
         return False
-    
+
 
 def current_pw(id, pw):
     # 비밀번호 조회

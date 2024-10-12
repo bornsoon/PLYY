@@ -100,26 +100,12 @@
                 } else {
                 // 클래스로 모달 요소를 선택하고 첫 번째 요소를 선택
                     const modal = document.getElementById('logged-in')
-                    modal.classList.remove('hide');
-                    modal.style.display = 'flex'; // 모달을 화면에 표시
-                    modal.style.position = 'fixed';
-                    modal.style.top = '45%'; // 화면 중앙에 위치
-                    modal.style.left = '50%'; // 화면 중앙에 위치
-                    modal.style.transform = 'translate(-50%, -50%)'; // 중앙 정렬
-                    document.getElementById('modal-container').style.display = 'block';
+                    showModal(modal);
                 }
             });
-    
-
         })
         .catch(error => console.error('데이터를 처리하는 과정에서 오류가 발생하였습니다.'));
     }
-
-        function closeModal() {
-            document.getElementById('logged-in').classList.add('hide');
-            document.getElementById('modal-container').style.display = 'none';
-        }
-
 </script>
 
 {% endblock %}

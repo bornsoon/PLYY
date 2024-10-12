@@ -69,12 +69,7 @@ function fetchPlyy(api_route) {
                     ToggleLike(sessionId, plyy.id, 'plyy', 'plike');
                 } else {
                     const modal = document.getElementById('logged-in')
-                    modal.classList.remove('hide');
-                    modal.style.display = 'flex'; // 모달을 화면에 표시
-                    modal.style.position = 'fixed';
-                    modal.style.top = '45%'; // 화면 중앙에 위치
-                    modal.style.left = '50%'; // 화면 중앙에 위치
-                    modal.style.transform = 'translate(-50%, -50%)'; // 중앙 정렬
+                    showModal(modal);
                 }
             });
         });

@@ -150,7 +150,6 @@
                 </div>
             </div>
 
-
             <!-- 닉네임 변경 모달 -->
             <div id="nickname" class="modal hide">
                 <div class="modal__title">
@@ -181,6 +180,7 @@
                     <button class="btn confirm">확인</button>
                 </div>
             </div>
+            <div class="modal_container" id="modal-container"></div>
 
         </div>
     </div>
@@ -191,6 +191,7 @@
 {% block script %}
 
     <script>
+        document.title = 'MyInfo | PLYY';
         // 서버 측에서 템플릿 변수를 JavaScript 변수로 설정
         const userId = "{{ session.id }}";
         const userNickname = "{{ session.nickname }}";
@@ -212,6 +213,7 @@
             modal.style.top = '45%'; // 화면 중앙에 위치
             modal.style.left = '50%'; // 화면 중앙에 위치
             modal.style.transform = 'translate(-50%, -50%)'; // 중앙 정렬
+            document.getElementById('nickname-modal-container').style.display = 'block';
         }
         setInputValue();
 
@@ -310,7 +312,7 @@
         }
 
         function closeNickModal() {
-            document.getElementById('nickname').classList.add('hide');
+            document.getElementById('nickname').classList.add('hide');           
         }
 
         // 동적으로 이미지와 이름을 설정하는 함수

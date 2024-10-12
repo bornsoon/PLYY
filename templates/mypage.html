@@ -60,6 +60,7 @@
 
 {% block script %}
     <script>
+        document.title = 'MyPage | PLYY';
         // 서버 측에서 템플릿 변수를 JavaScript 변수로 설정
         const userId = "{{ session.id }}";
         const userNickname = "{{ session.nickname }}";

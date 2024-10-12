@@ -1,7 +1,6 @@
 # views.py
 from flask import Blueprint, request, session, render_template, redirect, url_for, jsonify
-from models_s import db, curator_like, curator_unlike, plyy_like,plyy_unlike,\
-                     extract_user, user_sign, user_signup, user_sign_aka,\
+from models_s import db, user_like, user_unlike, extract_user, user_sign, user_signup, user_sign_aka,\
                      current_pw, change_pw, change_nickname, change_img
 from route import main
 import os
@@ -25,6 +24,7 @@ def login_view():
         Pw = request.form['userpw']
         user = db.get_query('SELECT id, email, pw, nickname, img FROM USER WHERE email = ? and pw = ?', (Id, Pw), mul=False)
         if user:
+            print('suceess')
             session['id'] = user['id']
             session['nickname'] = user['nickname']
             if user['img']:
@@ -33,7 +33,8 @@ def login_view():
                 session['img'] ='U.jpg'
             return redirect(url_for('main.index'))
         else:
-            session['id'] = None
+            print('fail')
+            session['id'] = ''
             return render_template('login.html', login_failed=True)
         
     return render_template('login.html', login_failed=False)
@@ -160,7 +161,7 @@ def signup_final_view():
         # user_signup 함수 호출하여 데이터베이스에 사용자 추가
         result = user_signup(email, password, nickname)
         if result:
-            user = db.get_query('SELECT id FROM USER WHERE email = ? and pw = ?', (email,password),mul=False)
+            user = db.get_query('SELECT id FROM USER WHERE email = ? and pw = ?', (email,password), mul=False)
             session['id'] = user['id']
             session['nickname'] = user['nickname']
             return jsonify({'success': True, 'message': '회원가입이 완료되었습니다!'}), 200
@@ -172,15 +173,10 @@ def signup_final_view():
         return jsonify({'success': False, 'message': '서버 오류가 발생했습니다.'}), 500
 
 
-@like_toggle.route('/<category>/<u_id>/<c_id>', methods=['POST'])
-def like_view(category, u_id, c_id):
+@like_toggle.route('/<category>/<u_id>/<id>', methods=['POST'])
+def like_view(category, u_id, id):
     u_id = extract_user(u_id)
-    if category == 'cl':
-        success = curator_like(c_id, u_id)
-        print(1111111111)
-    elif category == 'pl':
-        success = plyy_like(c_id, u_id)
-        print(22222222222)
+    success = user_like(category, id, u_id)
 
     if success:
         return jsonify({'success': True}), 200
@@ -188,17 +184,11 @@ def like_view(category, u_id, c_id):
         return jsonify({'success': False}), 500
     
 
-@like_toggle.route('/<category>/<u_id>/<c_id>', methods=['DELETE'])
-def unlike_view(category, u_id, c_id):
+@like_toggle.route('/<category>/<u_id>/<id>', methods=['DELETE'])
+def unlike_view(category, u_id, id):
     u_id = extract_user(u_id)
-    if category == 'cul':
-        success = curator_unlike(c_id, u_id)
-        print(3333333333333)
-    elif category == 'pul':
-        success = plyy_unlike(c_id, u_id)
-        print(4444444444)
-    
-    success = curator_unlike(c_id, u_id)
+    success = user_unlike(category, id, u_id)
+
     if success:
         return jsonify({'success': True}), 200
     else:
