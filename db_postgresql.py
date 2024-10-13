@@ -35,7 +35,6 @@ def execute_query(query, params):
         
         with psycopg.connect(DATABASE_URI) as conn:
             with conn.cursor() as cur:
-
                 cur.execute(query, params)
                 conn.commit()
 
