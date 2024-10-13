@@ -1,21 +1,15 @@
 # views.py
 from flask import Blueprint, request, session, render_template, redirect, url_for, jsonify
-from models_p import db, user_like, user_unlike, extract_user, extract_user2, extract_user3, user_sign,\
+from models_p import user_like, user_unlike, extract_user, extract_user2, extract_user3, user_sign,\
                      user_signup, user_sign_aka, current_pw, change_pw, change_img, change_nickname
 from route import main
-import os
-# from app import app``
 
-### 블루프린트 정리하기
 
 mypage = Blueprint('mypage', __name__)
 api_mypage = Blueprint('api_mypage',__name__)
 api_signup = Blueprint('api_signup',__name__)
 like_toggle = Blueprint('like_toggle', __name__)
 
-########################################## app.config 역할???? 블루프린트??
-# app.config['UPLOAD_FOLDER'] = 'static/cardimage'
-# mypage_edit_img.config['UPLOAD_FOLDER'] = 'static/cardimage'
 
 @main.route('/login', methods=['GET', 'POST'])
 def login_view():
@@ -23,7 +17,6 @@ def login_view():
         id = request.form['userid']
         password = request.form['userpw']
         user = extract_user3(id, password)
-        print(user)
         if user:
             print('login suceess')
             session['id'] = user['id']
@@ -55,6 +48,7 @@ def mypage_view():
         return redirect(url_for('main.login_view'))
     return render_template('mypage.html')
 
+
 @main.route('/edit')
 def edit_view():
     if not session:
@@ -66,10 +60,8 @@ def edit_view():
 def upload_file():
     file = request.files['file']
     if file:
-        user_id = session.get('id')
-        filepath = os.path.join('static/cardimage/', f'U{user_id}.jpg')  ######## app.config
-        file.save(filepath)
-        change_img(id, file.filename)
+        u_id = session.get('id')
+        change_img(u_id, file)
     return redirect(url_for('main.edit_view'))
 
 
@@ -110,6 +102,7 @@ def change_password():
     else:
         return jsonify({'success': False, 'message': 'Failed to update password.'}), 500
 
+
 @api_mypage.route('/change-nickname', methods=['POST'])
 def edit_nickname():
     data = request.get_json()
@@ -146,6 +139,7 @@ def signup_email_view(email):
     except Exception as e:
         print(f"Error occurred: {e}")
         return jsonify({'exists': False}), 500
+
 
 @api_signup.route('/nickname/<nickname>',methods=['post'])
 def signup_nickname_view(nickname):

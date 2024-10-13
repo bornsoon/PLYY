@@ -1,6 +1,6 @@
-import db_p as db
+import db_postgresql as db
 from flask import session
-
+import os
 
 def like_status(category, id, u_id):
     try:
@@ -86,7 +86,7 @@ def user_sign_aka(nickname):
 def user_signup(email,pw,nickname):
     try:
         # 새로운 사용자 추가
-        db.execute_query("INSERT INTO PUBLIC.USER (email,pw,nickname) VALUES(%s, %s, %s)", (email,pw,nickname))
+        db.execute_query("INSERT INTO PUBLIC.USER (email, pw, nickname) VALUES(%s, %s, %s)", (email,pw,nickname))
         return True
     except Exception as e:
         print(f"회원가입 처리 중 오류 발생: {e}")
@@ -113,11 +113,15 @@ def change_pw(id,pw):
         return False
     
     
-def change_img(id,filename):
+def change_img(u_id, file):
+    filepath = os.path.join('static/cardimage/', f'U{u_id}.jpg') ######## app.config
+    file.save(filepath)
     query = 'UPDATE PUBLIC.USER SET img = %s WHERE id = %s'
-    params = (filename, id)
+    params = (f'U{id}.jpg', u_id)
+    print(file)
+    write_blob(u_id, file)
     try:
-        db.update_query(query, params)
+        db.execute_query(query, params)
         return True
     except Exception as e:
         print(f"Error updating password: {e}")
@@ -407,3 +411,13 @@ def curator_info(id):
     
     except Exception as e:
         print(f"QueryError of detail of curator: {e}")
+
+
+def write_blob(u_id, img_data):
+    """ Insert a BLOB into a table """
+    #with open(img_data, 'rb') as f:
+    #    data = f.read()
+    print("imgdata: ", img_data)
+    print('read(): ',img_data.read())
+    query = "INSERT INTO IMG(img, u_id) VALUES(%s, %s)"
+    db.execute_query_blob(query, (img_data.read(), u_id))          

@@ -1,5 +1,10 @@
-import db_s as db
+import db_sqlite as db
 from flask import session
+import os
+#from app import app
+
+#app.config['UPLOAD_FOLDER'] = 'static/cardimage'
+########################################## app.config 역할???? 블루프린트??
 
 
 def like_status(category, id, u_id):
@@ -86,7 +91,7 @@ def user_sign_aka(nickname):
 def user_signup(email,pw,nickname):
     try:
         # 새로운 사용자 추가
-        db.execute_query("INSERT INTO USER (email,pw,nickname) VALUES(?, ?, ?)", (email,pw,nickname))
+        db.execute_query("INSERT INTO USER (email, pw, nickname) VALUES(?, ?, ?)", (email,pw,nickname))
         return True
     except Exception as e:
         print(f"회원가입 처리 중 오류 발생: {e}")
@@ -113,14 +118,16 @@ def change_pw(id,pw):
         return False
     
     
-def change_img(id,filename):
+def change_img(u_id, file):
+    filepath = os.path.join('static/cardimage/', f'U{u_id}.jpg') ######## app.config
+    file.save(filepath)
     query = 'UPDATE USER SET img = ? WHERE id = ?'
-    params = (filename, id)
+    params = (f'U{u_id}.jpg', id)
     try:
-        db.update_query(query, params)
+        db.execute_query(query, params)
         return True
     except Exception as e:
-        print(f"Error updating password: {e}")
+        print(f"Error updating img: {e}")
         return False
     
     

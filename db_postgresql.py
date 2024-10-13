@@ -43,5 +43,23 @@ def execute_query(query, params):
         print(f"Connection failed: {e}")
 
 
+def execute_query_blob(query, params):
+    img, u_id = params
+    try:
+        if DATABASE_URI is None:
+            raise ValueError("DATABASE_URI is not set.")
+        
+        with psycopg.connect(DATABASE_URI) as conn:
+            with conn.cursor() as cur:
+                print(query)
+                print(u_id)
+                print(img[:10])
+                cur.execute(query, (img, u_id), binary=True)
+                conn.commit()
+
+    except psycopg.OperationalError as e:
+        print(f"Connection failed: {e}")
+
+
 def roll():
     return True
