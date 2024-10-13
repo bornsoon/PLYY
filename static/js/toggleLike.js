@@ -29,4 +29,10 @@ function ToggleLike(u_id, id, category, btn) {
     .catch(error => {
         console.error('Error toggling like:', error);
     });
+
+    if (likeStates[id]) {
+        return 0;
+    } else {
+        return 1;
+    }
 }

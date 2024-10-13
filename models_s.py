@@ -1,10 +1,6 @@
 import db_sqlite as db
 from flask import session
 import os
-#from app import app
-
-#app.config['UPLOAD_FOLDER'] = 'static/cardimage'
-########################################## app.config 역할???? 블루프린트??
 
 
 def like_status(category, id, u_id):
@@ -119,7 +115,7 @@ def change_pw(id,pw):
     
     
 def change_img(u_id, file):
-    filepath = os.path.join('static/cardimage/', f'U{u_id}.jpg') ######## app.config
+    filepath = os.path.join('static/cardimage/', f'U{u_id}.jpg')
     file.save(filepath)
     query = 'UPDATE USER SET img = ? WHERE id = ?'
     params = (f'U{u_id}.jpg', id)

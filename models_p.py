@@ -115,7 +115,7 @@ def change_pw(id,pw):
     
 def change_img(u_id, file):
     filepath = os.path.join('static/cardimage/', f'U{u_id}.jpg') ######## app.config
-    file.save(filepath)
+
     query = 'UPDATE PUBLIC.USER SET img = %s WHERE id = %s'
     params = (f'U{id}.jpg', u_id)
     print(file)
@@ -418,6 +418,6 @@ def write_blob(u_id, img_data):
     #with open(img_data, 'rb') as f:
     #    data = f.read()
     print("imgdata: ", img_data)
-    print('read(): ',img_data.read())
+    # print('read(): ',img_data.read().decode('utf-8'))
     query = "INSERT INTO IMG(img, u_id) VALUES(%s, %s)"
     db.execute_query_blob(query, (img_data.read(), u_id))          

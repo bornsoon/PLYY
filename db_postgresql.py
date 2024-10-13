@@ -53,7 +53,7 @@ def execute_query_blob(query, params):
             with conn.cursor() as cur:
                 print(query)
                 print(u_id)
-                print(img[:10])
+                print("img[:10]: ",img[:10])
                 cur.execute(query, (img, u_id), binary=True)
                 conn.commit()
 

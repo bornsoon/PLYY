@@ -42,7 +42,7 @@
 {% endblock %}
 
 {% block script %}
-    <script src="/static/js/like.js"></script>
+    <script src="/static/js/toggleLike.js"></script>
     <script src="/static/js/fetchPlyy.js"></script>
     <script src="/static/js/runtime.js"></script>
     <script src="/static/js/tag.js"></script>
@@ -92,9 +92,24 @@
             
             // 큐레이터 좋아요 버튼 클릭 이벤트 처리
             const likeButton = document.getElementById(`like-c${cid}`);
+            const clike = document.getElementById('likes');
             likeButton.addEventListener('click', function() {
                 if (sessionId) {
-                    ToggleLike(sessionId, cid, 'curator', 'cheart');
+                    result = ToggleLike(sessionId, cid, 'curator', 'cheart');
+                    // 하트 수 업데이트
+                    if (result == 1) {
+                            if (cLiked) {
+                                clike.textContent = curator.likes;
+                            } else {
+                                clike.textContent = curator.likes + 1;
+                            };
+                        } else {
+                            if (cLiked) {
+                                clike.textContent = curator.likes - 1;
+                            } else {
+                                clike.textContent = curator.likes;
+                            };
+                        };
                 } else {
                 // 클래스로 모달 요소를 선택하고 첫 번째 요소를 선택
                     const modal = document.getElementById('logged-in')
