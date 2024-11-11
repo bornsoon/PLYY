@@ -144,7 +144,7 @@ def tag_list():
         SELECT
         name AS tag
         FROM TAG
-        UNION
+        UNION ALL
         SELECT
         name AS tag
         FROM GENRE
