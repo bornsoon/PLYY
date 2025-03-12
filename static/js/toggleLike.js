@@ -9,7 +9,7 @@ function ToggleLike(u_id, id, category, btn) {
     
     const likeButton = document.getElementById(btnId);
     const methodToggle = likeStates[id] ? 'DELETE' : 'POST';
-    const url = likeStates[id] ? `/api/like_toggle/ul/${category}/${encodeURIComponent(u_id)}/${encodeURIComponent(id)}` : `/api/like_toggle/l/${category}/${encodeURIComponent(u_id)}/${encodeURIComponent(id)}`;
+    const url = likeStates[id] ? `/api/like_toggle/${category}/${encodeURIComponent(u_id)}/${encodeURIComponent(id)}` : `/api/like_toggle/${category}/${encodeURIComponent(u_id)}/${encodeURIComponent(id)}`;
     fetch(url, { method: methodToggle })
     .then(response => response.json())
     .then(data => {
