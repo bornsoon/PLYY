@@ -133,6 +133,12 @@
 
                 const likeButton = document.getElementById(`like-p${plyyId}`)
                 likeButton.addEventListener('click',function() {
+                    // // 현재 버튼 상태 가져와서 fetch
+                    // fetch(`/api/like_toggle/plyy/${sessionId}/${plyyId}`, { method: 'POST'})
+                    // .then(response =>  response.json())
+                    // .then(data => {
+                    //     plike.textContent = data.plyy.heart;
+                    // });
                     if (sessionId) {
                         result = ToggleLike(sessionId, plyyId, 'plyy', 'pheart');
                         // 하트 수 업데이트
