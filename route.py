@@ -25,15 +25,15 @@ def notification():
     return render_template('notification.html')
 
 @plyy.route('/<id>')
-def plyy_detail(id):
+def plyy_detail():
     return render_template('plyy.html')
 
 @plyy.route('/<id>/<song_index>')
-def song_detail(id, song_index):
+def song_detail():
     return render_template('song.html')
 
 @curator.route('/<id>')
-def curator_detail(id):
+def curator_detail():
     return render_template('curator.html')
 
 @search.route('/plyy')
