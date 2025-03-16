@@ -24,4 +24,4 @@ app.register_blueprint(like_toggle, url_prefix='/api/like_toggle')
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
