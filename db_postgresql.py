@@ -4,7 +4,6 @@ from psycopg.rows import dict_row
 
 DATABASE_URI = os.getenv('POSTGRES_URL')
 
-
 def get_query(query, params=None, mul=True):
     try:
         if DATABASE_URI is None:
