@@ -45,6 +45,6 @@ def execute_query(query, params):
 
 
 def roll():
-    conn,cur = connect_db()
+    conn = connect_db()
     conn.rollback()
     conn.close()
