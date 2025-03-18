@@ -63,8 +63,22 @@
 <br><br>
 
 ## 📌 상세 구현
+<b>
+<table border=0>
+ <tr>
+  <td width=300>
+   <img src=https://github.com/user-attachments/assets/7594d358-8941-41df-ad6d-a6144f7e5c8a width="500">
+  </td>
+  <td>
+   <ul>
+    <li>슬라이딩&nbsp&nbsp</li>
+    <li>3가지 서비스 연결&nbsp&nbsp</li>
+   </ul>
+  </td>
+ </tr>
+</table>
 
-
+  
 <br><br>
 
 ## 💬 회고
