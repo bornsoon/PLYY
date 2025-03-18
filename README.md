@@ -62,16 +62,17 @@
 ## 📌 상세 구현
 <div align=center>
 <img src=https://github.com/user-attachments/assets/3ead6d0e-a7df-4670-8cbb-22630fdb0790 width=600>
+<br><br>
+
+**`검색 기능`** → `해시태그 검색` & `일반 검색`
+<br><img src=https://github.com/user-attachments/assets/3727c3de-0586-4944-bb25-cdf683bb74dc>
 <br>
 
-- **`검색 기능`** → `해시태그 검색` & `일반 검색`
-  - <br><img src=https://github.com/user-attachments/assets/3727c3de-0586-4944-bb25-cdf683bb74dc>
-<br>
+**`YoutubeAPI와 SpotiftAPI 활용`** → `플레이리스트 제공`
+<br><img src=https://github.com/user-attachments/assets/20687608-0a45-4566-9a05-411ac3a5b243>
+<br><br>
 
-- **`YoutubeAPI와 SpotiftAPI 활용`** → `플레이리스트 제공`
-  - <br><img src=https://github.com/user-attachments/assets/20687608-0a45-4566-9a05-411ac3a5b243>
-<br>
-<img src=https://github.com/user-attachments/assets/0478c42c-d010-41cf-9819-6571486f3220>
+<img src=https://github.com/user-attachments/assets/0478c42c-d010-41cf-9819-6571486f3220 width=800>
 
 </div>
   
