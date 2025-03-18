@@ -7,9 +7,6 @@
 <br>
 
 ## 👉👉👉 [ click! 🎶【 PLYY 둘러보기 】](https://plyyv.vercel.app/) 👈👈👈
-
-<img src="https://github.com/user-attachments/assets/4fa57aa9-5aa5-4e51-9b95-455928ec19ee" width=600>
-
 </div>
 <br><br><br>
 
@@ -63,21 +60,20 @@
 <br><br>
 
 ## 📌 상세 구현
-<b>
-<table border=0>
- <tr>
-  <td width=300>
-   <img src=https://github.com/user-attachments/assets/7594d358-8941-41df-ad6d-a6144f7e5c8a width="500">
-  </td>
-  <td>
-   <ul>
-    <li>슬라이딩&nbsp&nbsp</li>
-    <li>3가지 서비스 연결&nbsp&nbsp</li>
-   </ul>
-  </td>
- </tr>
-</table>
+<div align=center>
+<img src=https://github.com/user-attachments/assets/3ead6d0e-a7df-4670-8cbb-22630fdb0790 width=600>
+<br>
 
+- **`검색 기능`** → `해시태그 검색` & `일반 검색`
+  - <br><img src=https://github.com/user-attachments/assets/3727c3de-0586-4944-bb25-cdf683bb74dc>
+<br>
+
+- **`YoutubeAPI와 SpotiftAPI 활용`** → `플레이리스트 제공`
+  - <br><img src=https://github.com/user-attachments/assets/20687608-0a45-4566-9a05-411ac3a5b243>
+<br>
+<img src=https://github.com/user-attachments/assets/0478c42c-d010-41cf-9819-6571486f3220>
+
+</div>
   
 <br><br>
 
