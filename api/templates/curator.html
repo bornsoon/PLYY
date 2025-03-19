@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- 큐레이터 상세 -->
+<div class="c-img">
+    <div class="c-img__info">
+        <div class="c-img__info__curator align left">
+            <span class="fs20" style="text-shadow: 0px 0px 1px black">Curator</span>
+            <span class="fs20-bold" id="cname" style="text-shadow: 0px 0px 5px black"></span>
+        </div>
+        <p class="fs14" id="intro" style="text-shadow: 0px 0px 1px black"></p>
+    </div>
+</div>
+<!-- 큐레이터 상세 타이틀 -->
+<div class="title-type2">
+    <div class="align both">
+        <!-- 여기에 동적으로 추가될 HTML -->
+    </div>
+</div>
+<!-- 플리카드 -->
+<ul class="plyy-card mg32" id="mainList"></ul>
+
+<div id="tost_message">URL이 복사되었습니다!</div>
+
+<!-- 큐레이터상세 플로팅 바 -->
+<div class="fixed-floating">
+    <div class="floating-curator">
+        <div><button class="btn__float__arrow__left" aria-label="뒤로가기"></button></div>
+        <!-- <div class="like-group">
+            <button class="btn__float__like" aria-label="큐레이터 좋아요 수"></button>
+            <span class="fs12">98</span>
+        </div> -->
+        <div><button class="btn__float__share--black" aria-label="큐레이터 공유하기"></button></div>
+    </div>
+</div>
+
+<!-- 위로가기 화살표 플로팅 아이콘 -->
+<div class="fixed-floating-rb"><button class="btn__main__arrow" aria-label="메인에서 위로가기"></button></div>
+
+
+{% endblock %}
+
+{% block script %}
+    <script src="/static/js/toggleLike.js"></script>
+    <script src="/static/js/fetchPlyy.js"></script>
+    <script src="/static/js/runtime.js"></script>
+    <script src="/static/js/tag.js"></script>
+    <script src="/static/js/cfloating.js"></script>
+    <script src="/static/js/scrollTop.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let url = window.location.href;
+            url = url.split('/');
+            let cid = url[url.length - 1];
+            fetchCuratorDetail(cid);
+            const mainList = document.getElementById('mainList');
+            fetchPlyy(`/api/c_plyy/${cid}`) 
+        });
+
+        function fetchCuratorDetail(cid) {
+
+        fetch(`/api/curator/${cid}`)
+        .then(response => response.json())
+        .then(curator => {
+            const sessionId = "{{ session['id'] }}";
+            const cid = curator.id;
+            const cLiked = sessionId != '' ? (curator.cliked || false) : false;
+            const cName = curator.name;
+            document.title = cName + ' | PLYY';
+            
+            // 큐레이터 상세
+            const cImg = document.getElementsByClassName('c-img')[0];
+            const cImg_url = `/static/cardimage/${curator.img}`;
+            cImg.style.backgroundImage = `url(${cImg_url})`;
+            const c = document.getElementById('cname');
+            c.textContent = cName;
+            const intro = document.getElementById('intro');
+            intro.textContent = curator.intro;
+            
+            // 큐레이터 상세 타이틀 
+            const cDetail = document.querySelector('.title-type2 .align.both');
+            cDetail.innerHTML = `<div class="title-type2__info fs14">발행 플리 : <span class="fs14">${curator.plyys}</span></div>
+                                <div class="title-type2__like">
+                                    <button class="btn-cheart--${cLiked ? 'fill' : 'unfill'}" id="like-c${cid}"></button>
+                                    <span class="fs14" id="likes">${curator.likes}</span>
+                                </div>`;
+
+            if (sessionId) {
+                curatorLikeStates[cid] = cLiked;
+            }
+            
+            // 큐레이터 좋아요 버튼 클릭 이벤트 처리
+            const likeButton = document.getElementById(`like-c${cid}`);
+            const clike = document.getElementById('likes');
+            likeButton.addEventListener('click', function() {
+                if (sessionId) {
+                    result = ToggleLike(sessionId, cid, 'curator', 'cheart');
+                    // 하트 수 업데이트
+                    if (result == 1) {
+                            if (cLiked) {
+                                clike.textContent = curator.likes;
+                            } else {
+                                clike.textContent = curator.likes + 1;
+                            };
+                        } else {
+                            if (cLiked) {
+                                clike.textContent = curator.likes - 1;
+                            } else {
+                                clike.textContent = curator.likes;
+                            };
+                        };
+                } else {
+                // 클래스로 모달 요소를 선택하고 첫 번째 요소를 선택
+                    const modal = document.getElementById('logged-in')
+                    showModal(modal);
+                }
+            });
+        })
+        .catch(error => console.error('데이터를 처리하는 과정에서 오류가 발생하였습니다.'));
+    }
+</script>
+
+{% endblock %}
