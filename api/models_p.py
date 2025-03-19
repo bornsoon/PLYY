@@ -396,7 +396,7 @@ def curator_info(id):
                         ON c.id = p.c_id
                         WHERE c.id = %s
                         GROUP BY c.id
-                        '''  # postgresql
+                        '''   # postgresql
         curator = db.get_query(curator_query, (id,), mul=False)
         likes = db.get_query('SELECT COUNT(1) count FROM C_LIKE WHERE c_id = %s', (id,), mul=False)
 
