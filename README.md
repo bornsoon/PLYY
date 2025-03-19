@@ -7,6 +7,9 @@
 <br>
 
 ## 👉👉👉 [ click! 🎶【 PLYY 둘러보기 】](https://plyyv.vercel.app/) 👈👈👈
+
+<img src=https://github.com/user-attachments/assets/e4905c24-8c05-4128-abfc-68a5e13d25af>
+
 </div>
 <br><br><br>
 
