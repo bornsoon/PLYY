@@ -5,8 +5,8 @@ app = Flask(__name__)
 app.secret_key = 'plyy_page'
 app.permanent_session_lifetime = timedelta(minutes=30)
 
-from views import api_mypage, api_signup, like_toggle
-from route import main, plyy, curator, search, api_main, api_plyy, api_curator, api_c_plyy, api_search, api_like
+from api.views import api_mypage, api_signup, like_toggle
+from api.route import main, plyy, curator, search, api_main, api_plyy, api_curator, api_c_plyy, api_search, api_like
 
 app.register_blueprint(main, url_prefix='/')
 app.register_blueprint(plyy, url_prefix='/plyy')

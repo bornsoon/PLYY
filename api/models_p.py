@@ -1,4 +1,4 @@
-import db_postgresql as db
+import api.db_postgresql as db
 from flask import session
 import os
 
