@@ -10,7 +10,6 @@ def connect_db():
 
     return conn, cur
 
-
 def get_query(query, params=None, mul=True):
     conn, cur = connect_db()
 
@@ -36,13 +35,11 @@ def get_query(query, params=None, mul=True):
 
     return result
 
-
 def execute_query(query, params):
     conn,cur = connect_db()
     cur.execute(query, params)
     conn.commit()
     conn.close
-
 
 def roll():
     conn = connect_db()
