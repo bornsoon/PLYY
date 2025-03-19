@@ -53,7 +53,3 @@ def execute_query_blob(query, params):
 
     except psycopg.OperationalError as e:
         print(f"Connection failed: {e}")
-
-
-def roll():
-    return True
