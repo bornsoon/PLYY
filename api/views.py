@@ -4,7 +4,6 @@ from models_s import user_like, user_unlike, extract_user, extract_user2, extrac
                      user_signup, user_sign_aka, current_pw, change_pw, change_img, change_nickname
 from route import main
 
-
 mypage = Blueprint('mypage', __name__)
 api_mypage = Blueprint('api_mypage',__name__)
 api_signup = Blueprint('api_signup',__name__)
