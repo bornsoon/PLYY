@@ -46,7 +46,6 @@ def user_unlike(category, u_id, id):
             if result:
                 db.execute_query('DELETE FROM C_LIKE WHERE u_id = ? AND c_id = ?', (u_id, id))
         return True
-    
     except Exception as e:
         print(f"Error deleting like: {e}")
         db.roll()
