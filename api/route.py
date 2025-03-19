@@ -12,6 +12,7 @@ api_curator = Blueprint('api_curator', __name__)
 api_search = Blueprint('api_search', __name__)
 api_like = Blueprint('api_like', __name__)
 
+
 @main.route('/')
 def index():
     return render_template('main.html')
