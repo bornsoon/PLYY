@@ -1,7 +1,7 @@
 <div align="center">
 
 # 🎧🎵PLYY🎵🎧
-##### Youtube API와 Spotify API를 활용해서 플레이리스트를 제공하는 서비스
+##### Youtube API와 Spotify API를 활용해서 플레이리스트를 제공하는 웹 서비스
 ###### 🌟 Youtube Embed Player 통해 플레이리스트를 감상하고
 ###### 🌟 큐레이터가 제공하는 곡의 맞춤 소개글도 함께 제공하는 플레이리스트 제공 서비스
 <br>
