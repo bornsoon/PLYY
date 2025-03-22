@@ -11,9 +11,18 @@
 <img src=https://github.com/user-attachments/assets/e4905c24-8c05-4128-abfc-68a5e13d25af>
 
 </div>
-<br><br><br>
+<br>
+<h2>📜 목차</h2>
+01. <a href=#1>프로젝트 소개</a><br>
+02. <a href=#2>ERD</a><br>
+03. <a href=#3>Architecture</a><br>
+04. <a href=#4>담당 역할</a><br>
+05. <a href=#5>상세 구현</a><br>
+06. <a href=#6>회고</a><br>
+<br><br>
 
-## 📜 About
+<h2 id=1>📜 About</h2>
+
 ##### 🗓️ 작업기간 : 2024.07.01 ~ 2024.08.13
 ##### 👩🏻‍👧‍👦 참여인원 : 풀스택 본인 포함 2인, 디자이너, 퍼블리셔 각각 1인
 ##### 🔧 기술스택
@@ -34,17 +43,16 @@
 
 <br>
 
-## ✏️ ERD
+<h2 id=2>✏️ ERD</h2>
+  
 ![스크린샷 2025-03-07 173406](https://github.com/user-attachments/assets/0f36de92-5d78-4584-99ba-3528d6385d33)
 
-<br>
+<h2 id=3>✏️ Architecture</h2>
 
-## ✏️ Architecture
-![스크린샷 2025-03-18 175311](https://github.com/user-attachments/assets/b0c140c0-37dc-4403-b9dd-aadd85efb2a4)
+![ERD](https://github.com/user-attachments/assets/34ac1fca-e1e3-4f88-8462-5a18ca742a00)
 
-<br><br>
+<h2 id=4>📌 담당 역할</h2>
 
-## 📌 담당 역할
 - **`  데이터베이스 구성   `** 
 - **`  각 페이지 구현   `**
   - 메인 페이지
@@ -62,7 +70,7 @@
  
 <br><br>
 
-## 📌 상세 구현
+<h2 id=5>📌 상세 구현</h2>
 <div align=center>
 <img src=https://github.com/user-attachments/assets/3ead6d0e-a7df-4670-8cbb-22630fdb0790 width=600>
 <br><br>
@@ -81,7 +89,7 @@
   
 <br>
 
-## 💬 회고
+<h2 id=6>💬 회고</h2>
 
 ###### *타 과정의 UI/UX 반과 협업하여 완성한 프로젝트였기에, 더욱 값진 경험이 되었다.*
 ###### *UI와 퍼블리싱 작업을 제외한 모든 개발을 두 명이서 진행하면서,<br> 다양한 기능을 직접 구현할 수 있는 좋은 기회였다.*
