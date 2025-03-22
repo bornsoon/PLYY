@@ -49,7 +49,8 @@
 
 <h2 id=3>✏️ Architecture</h2>
 
-![ERD](https://github.com/user-attachments/assets/34ac1fca-e1e3-4f88-8462-5a18ca742a00)
+![Architecture](https://github.com/user-attachments/assets/e1b828fe-743e-4444-94c6-ebffb024a3f7)
+
 
 <h2 id=4>📌 담당 역할</h2>
 
